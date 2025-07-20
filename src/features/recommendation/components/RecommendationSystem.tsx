@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { COMPLIANCE_CHECKLIST } from "../constants";
-import type { Answer, Recommendation } from "../types";
+import { COMPLIANCE_CHECKLIST } from "../../../constants";
+import type { Answer, Recommendation } from "../../../types";
 import { RecommendationList } from "./RecommendationList";
 import {
     Card,
@@ -8,8 +8,8 @@ import {
     CardDescription,
     CardHeader,
     CardTitle,
-} from "./ui/card";
-import { Progress } from "./ui/progress";
+} from "../../../components/ui/card";
+import { Progress } from "../../../components/ui/progress";
 import { QuestionCard } from "./QuestionCard";
 
 export function RecommendationSystem() {
@@ -131,6 +131,7 @@ export function RecommendationSystem() {
 
             <QuestionCard
                 category={currentCategory}
+                regulatorySpec={currentQuestion.regulatorySpec}
                 question={currentQuestion.question}
                 questionNumber={answeredQuestions + 1}
                 totalQuestions={totalQuestions}

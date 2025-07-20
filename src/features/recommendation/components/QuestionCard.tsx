@@ -1,15 +1,16 @@
-import { Button } from "./ui/button";
+import { Button } from "@/components/ui/button";
 import {
     Card,
     CardContent,
     CardDescription,
     CardHeader,
     CardTitle,
-} from "./ui/card";
+} from "@/components/ui/card";
 
 interface QuestionCardProps {
     category: string;
     question: string;
+    regulatorySpec: string;
     questionNumber: number;
     totalQuestions: number;
     onAnswer: (answer: boolean) => void;
@@ -18,17 +19,26 @@ interface QuestionCardProps {
 export function QuestionCard({
     category,
     question,
+    regulatorySpec,
     questionNumber,
     totalQuestions,
     onAnswer,
 }: QuestionCardProps) {
     return (
         <Card>
-            <CardHeader>
-                <CardTitle className="text-lg">
-                    Question {questionNumber} of {totalQuestions}
-                </CardTitle>
-                <CardDescription>{category}</CardDescription>
+            <CardHeader className="flex justify-between items-center">
+                <div>
+                    <CardTitle className="text-lg">
+                        Question {questionNumber} of {totalQuestions}
+                    </CardTitle>
+                    <CardDescription>{category}</CardDescription>
+                </div>
+
+                <div>
+                    <CardDescription>
+                        Regulatory Body: {regulatorySpec}
+                    </CardDescription>
+                </div>
             </CardHeader>
             <CardContent className="space-y-6">
                 <p className="text-base leading-relaxed">{question}</p>
