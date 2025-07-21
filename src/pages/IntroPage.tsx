@@ -137,11 +137,9 @@ export default function IntroPage() {
                         <div className="flex gap-10 pt-12 flex-col w-full">
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                                 <div className="text-center">
-                                    <div className="bg-blue-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                                        <span className="text-2xl font-bold text-blue-600">
-                                            NDPR
-                                        </span>
-                                    </div>
+                                    <span className="text-2xl font-bold">
+                                        NDPR
+                                    </span>
                                     <h3 className="font-semibold mb-2">
                                         Nigerian Data Protection Regulation
                                     </h3>
@@ -151,11 +149,9 @@ export default function IntroPage() {
                                     </p>
                                 </div>
                                 <div className="text-center">
-                                    <div className="bg-green-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                                        <span className="text-2xl font-bold text-green-600">
-                                            CBN
-                                        </span>
-                                    </div>
+                                    <span className="text-2xl font-bold">
+                                        CBN
+                                    </span>
                                     <h3 className="font-semibold mb-2">
                                         Central Bank of Nigeria
                                     </h3>
@@ -165,11 +161,9 @@ export default function IntroPage() {
                                     </p>
                                 </div>
                                 <div className="text-center">
-                                    <div className="bg-purple-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                                        <span className="text-2xl font-bold text-purple-600">
-                                            NITDA
-                                        </span>
-                                    </div>
+                                    <span className="text-2xl font-bold">
+                                        NITDA
+                                    </span>
                                     <h3 className="font-semibold mb-2">
                                         Nigeria IT Development Agency
                                     </h3>
