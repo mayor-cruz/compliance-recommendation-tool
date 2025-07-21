@@ -16,3 +16,14 @@ export interface Recommendation {
     remediation: string;
     regulatorySpec: string;
 }
+
+export interface CompanyInfo {
+    companyName: string;
+    industry: string;
+    companySize: string;
+    location: string;
+    contactEmail: string;
+    complianceOfficer: string;
+    hasDataProtectionOfficer: boolean;
+    primaryDataTypes: string[];
+}

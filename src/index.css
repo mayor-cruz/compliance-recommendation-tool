@@ -1,7 +1,6 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
 @import "tailwindcss";
 @import "tw-animate-css";
-
-@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
 
 @custom-variant dark (&:is(.dark *));
 
@@ -130,5 +129,49 @@
     }
     body {
         @apply bg-background text-foreground;
+    }
+}
+
+/* Print styles for compliance report */
+@media print {
+    @page {
+        margin: 1in;
+        size: letter;
+    }
+
+    body {
+        color: black !important;
+        background: white !important;
+    }
+
+    .no-print {
+        display: none !important;
+    }
+
+    .print-break {
+        page-break-before: always;
+    }
+
+    /* Ensure proper spacing for print */
+    .space-y-6 > * + * {
+        margin-top: 1.5rem !important;
+    }
+
+    /* Hide non-essential elements during print */
+    header,
+    button,
+    .bg-gradient-to-br {
+        display: none !important;
+    }
+
+    /* Ensure cards have proper borders in print */
+    .border {
+        border: 1px solid #d1d5db !important;
+    }
+
+    /* Ensure proper text contrast */
+    .text-gray-600,
+    .text-muted-foreground {
+        color: #4b5563 !important;
     }
 }

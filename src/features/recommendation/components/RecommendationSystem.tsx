@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { COMPLIANCE_CHECKLIST } from "../../../constants";
-import type { Answer, Recommendation } from "../../../types";
+import type { Answer, Recommendation, CompanyInfo } from "../../../types";
 import { RecommendationList } from "./RecommendationList";
 import {
     Card,
@@ -12,7 +12,13 @@ import {
 import { Progress } from "../../../components/ui/progress";
 import { QuestionCard } from "./QuestionCard";
 
-export function RecommendationSystem() {
+interface RecommendationSystemProps {
+    companyInfo?: CompanyInfo;
+}
+
+export function RecommendationSystem({
+    companyInfo,
+}: RecommendationSystemProps) {
     const [currentCategoryIndex, setCurrentCategoryIndex] = useState(0);
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [answers, setAnswers] = useState<Answer[]>([]);
@@ -40,7 +46,7 @@ export function RecommendationSystem() {
             answer,
         };
 
-        setAnswers((prev) => [...prev, newAnswer]);
+        setAnswers([...answers, newAnswer]);
 
         // Move to next question
         if (currentQuestionIndex < currentQuestions.length - 1) {
@@ -90,6 +96,7 @@ export function RecommendationSystem() {
         return (
             <RecommendationList
                 recommendations={getRecommendations()}
+                companyInfo={companyInfo}
                 onRestart={handleRestart}
             />
         );

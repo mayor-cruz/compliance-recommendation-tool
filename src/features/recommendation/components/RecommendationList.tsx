@@ -1,22 +1,35 @@
-import { Button } from "@/components/ui/button";
+import { Button } from "../../../components/ui/button";
 import {
     Card,
     CardContent,
     CardDescription,
     CardHeader,
     CardTitle,
-} from "@/components/ui/card";
-import type { Recommendation } from "@/types";
+} from "../../../components/ui/card";
+import { useNavigate } from "react-router";
+import type { Recommendation, CompanyInfo } from "../../../types";
 
 interface RecommendationListProps {
     recommendations: Recommendation[];
+    companyInfo?: CompanyInfo;
     onRestart: () => void;
 }
 
 export function RecommendationList({
     recommendations,
+    companyInfo,
     onRestart,
 }: RecommendationListProps) {
+    const navigate = useNavigate();
+
+    const handleCompleteRestart = () => {
+        navigate("/");
+    };
+
+    const handleEditCompanyInfo = () => {
+        navigate("/company-info", { state: companyInfo });
+    };
+
     const groupedRecommendations = recommendations.reduce((acc, rec) => {
         if (!acc[rec.category]) {
             acc[rec.category] = [];
@@ -25,8 +38,110 @@ export function RecommendationList({
         return acc;
     }, {} as Record<string, Recommendation[]>);
 
+    const currentDate = new Date().toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+    });
+
     return (
         <div className="max-w-4xl mx-auto p-6 space-y-6">
+            {/* Company Information Header */}
+            {companyInfo && (
+                <Card>
+                    <CardHeader>
+                        <CardTitle className="text-2xl">
+                            Compliance Assessment Report
+                        </CardTitle>
+                        <CardDescription>
+                            Generated on {currentDate}
+                        </CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                        <div className="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <h3 className="font-semibold text-lg mb-3">
+                                    Organization Details
+                                </h3>
+                                <div className="space-y-2 text-sm">
+                                    <div>
+                                        <span className="font-medium">
+                                            Company:
+                                        </span>{" "}
+                                        {companyInfo.companyName}
+                                    </div>
+                                    <div>
+                                        <span className="font-medium">
+                                            Industry:
+                                        </span>{" "}
+                                        {companyInfo.industry}
+                                    </div>
+                                    <div>
+                                        <span className="font-medium">
+                                            Size:
+                                        </span>{" "}
+                                        {companyInfo.companySize}
+                                    </div>
+                                    <div>
+                                        <span className="font-medium">
+                                            Location:
+                                        </span>{" "}
+                                        {companyInfo.location}
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <h3 className="font-semibold text-lg mb-3">
+                                    Contact Information
+                                </h3>
+                                <div className="space-y-2 text-sm">
+                                    <div>
+                                        <span className="font-medium">
+                                            Email:
+                                        </span>{" "}
+                                        {companyInfo.contactEmail}
+                                    </div>
+                                    <div>
+                                        <span className="font-medium">
+                                            Compliance Officer:
+                                        </span>{" "}
+                                        {companyInfo.complianceOfficer}
+                                    </div>
+                                    <div>
+                                        <span className="font-medium">
+                                            DPO Appointed:
+                                        </span>{" "}
+                                        {companyInfo.hasDataProtectionOfficer
+                                            ? "Yes"
+                                            : "No"}
+                                    </div>
+                                    {companyInfo.primaryDataTypes.length >
+                                        0 && (
+                                        <div>
+                                            <span className="font-medium">
+                                                Data Types:
+                                            </span>
+                                            <div className="mt-1">
+                                                {companyInfo.primaryDataTypes.map(
+                                                    (type) => (
+                                                        <span
+                                                            key={type}
+                                                            className="inline-block bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded mr-1 mb-1"
+                                                        >
+                                                            {type}
+                                                        </span>
+                                                    )
+                                                )}
+                                            </div>
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+                    </CardContent>
+                </Card>
+            )}
+
             <Card>
                 <CardHeader>
                     <CardTitle>Your Compliance Recommendations</CardTitle>
@@ -46,7 +161,29 @@ export function RecommendationList({
                                   } found`
                                 : "No recommendations needed"}
                         </div>
-                        <Button onClick={onRestart}>Start Over</Button>
+                        <div className="flex gap-2 no-print">
+                            <Button
+                                variant="outline"
+                                onClick={() => window.print()}
+                            >
+                                Export Report
+                            </Button>
+                            <Button
+                                variant="outline"
+                                onClick={handleEditCompanyInfo}
+                            >
+                                Edit Company Info
+                            </Button>
+                            <Button onClick={onRestart}>
+                                Retake Assessment
+                            </Button>
+                            <Button
+                                variant="outline"
+                                onClick={handleCompleteRestart}
+                            >
+                                Start Over
+                            </Button>
+                        </div>
                     </div>
                 </CardContent>
             </Card>
