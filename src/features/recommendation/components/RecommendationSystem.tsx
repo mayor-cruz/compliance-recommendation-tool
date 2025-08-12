@@ -1,6 +1,12 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { COMPLIANCE_CHECKLIST } from "../../../constants";
-import type { Answer, Recommendation, CompanyInfo } from "../../../types";
+import type {
+    Answer,
+    Recommendation,
+    CompanyInfo,
+    PreCloudQuestion,
+    PostCloudQuestion,
+} from "../../../types";
 import { RecommendationList } from "./RecommendationList";
 import {
     Card,
@@ -14,88 +20,150 @@ import { QuestionCard } from "./QuestionCard";
 
 interface RecommendationSystemProps {
     companyInfo?: CompanyInfo;
+    onShowRecommendations: (showing: boolean) => void;
 }
 
 export function RecommendationSystem({
     companyInfo,
+    onShowRecommendations,
 }: RecommendationSystemProps) {
-    const [currentCategoryIndex, setCurrentCategoryIndex] = useState(0);
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [answers, setAnswers] = useState<Answer[]>([]);
     const [showRecommendations, setShowRecommendations] = useState(false);
+    const [currentCategory, setCurrentCategory] = useState("");
 
-    const categories = Object.keys(COMPLIANCE_CHECKLIST);
-    const currentCategory = categories[currentCategoryIndex];
-    const currentQuestions =
-        COMPLIANCE_CHECKLIST[
-            currentCategory as keyof typeof COMPLIANCE_CHECKLIST
-        ];
-    const currentQuestion = currentQuestions[currentQuestionIndex];
+    // Get questions based on cloud status
+    const getQuestionsData = () => {
+        if (!companyInfo?.cloudStatus) return { questions: [], categories: [] };
 
-    const totalQuestions = Object.values(COMPLIANCE_CHECKLIST).reduce(
-        (total, questions) => total + questions.length,
-        0
-    );
-    const answeredQuestions = answers.length;
-    const progress = (answeredQuestions / totalQuestions) * 100;
-
-    const handleAnswer = (answer: boolean) => {
-        const newAnswer: Answer = {
-            categoryIndex: currentCategoryIndex,
-            questionIndex: currentQuestionIndex,
-            answer,
-        };
-
-        setAnswers([...answers, newAnswer]);
-
-        // Move to next question
-        if (currentQuestionIndex < currentQuestions.length - 1) {
-            setCurrentQuestionIndex((prev) => prev + 1);
-        } else if (currentCategoryIndex < categories.length - 1) {
-            setCurrentCategoryIndex((prev) => prev + 1);
-            setCurrentQuestionIndex(0);
+        if (companyInfo.cloudStatus === "pre-cloud") {
+            return {
+                questions: COMPLIANCE_CHECKLIST["pre-cloud"],
+                categories: ["Pre-Cloud Assessment"],
+            };
         } else {
-            // All questions answered
-            setShowRecommendations(true);
+            const postCloudData = COMPLIANCE_CHECKLIST["post-cloud"];
+            const categories = Object.keys(postCloudData);
+            const questions = categories.flatMap((category) =>
+                postCloudData[category as keyof typeof postCloudData].map(
+                    (q: PostCloudQuestion) => ({
+                        ...q,
+                        category,
+                    })
+                )
+            );
+            return { questions, categories };
         }
     };
 
-    const getRecommendations = (): Recommendation[] => {
-        const recommendations: Recommendation[] = [];
+    const { questions, categories } = getQuestionsData();
+    const totalQuestions = questions.length;
 
-        answers.forEach((answer) => {
-            if (!answer.answer) {
-                // If answer is "No"
-                const categoryName = categories[answer.categoryIndex];
-                const questions =
-                    COMPLIANCE_CHECKLIST[
-                        categoryName as keyof typeof COMPLIANCE_CHECKLIST
-                    ];
-                const question = questions[answer.questionIndex];
+    useEffect(() => {
+        if (questions.length > 0) {
+            const firstQuestion = questions[0];
+            setCurrentCategory(
+                companyInfo?.cloudStatus === "pre-cloud"
+                    ? "Pre-Cloud Assessment"
+                    : (firstQuestion as any).category || categories[0]
+            );
+        }
+    }, [questions, categories, companyInfo?.cloudStatus]);
 
-                recommendations.push({
-                    category: categoryName,
-                    question: question.question,
-                    remediation: question.remediation,
-                    regulatorySpec: question.regulatorySpec,
-                });
+    const currentQuestion = questions[currentQuestionIndex];
+    const progress =
+        totalQuestions > 0 ? (answers.length / totalQuestions) * 100 : 0;
+
+    const handleAnswer = (answer: "yes" | "no") => {
+        const newAnswer: Answer = {
+            questionIndex: currentQuestionIndex,
+            category:
+                companyInfo?.cloudStatus === "pre-cloud"
+                    ? "Pre-Cloud Assessment"
+                    : (currentQuestion as any).category || currentCategory,
+            answer,
+            question: currentQuestion.question,
+        };
+
+        const newAnswers = [...answers, newAnswer];
+        setAnswers(newAnswers);
+
+        if (currentQuestionIndex < totalQuestions - 1) {
+            const nextQuestionIndex = currentQuestionIndex + 1;
+            setCurrentQuestionIndex(nextQuestionIndex);
+
+            // Update category for post-cloud questions
+            if (companyInfo?.cloudStatus === "post-cloud") {
+                const nextQuestion = questions[nextQuestionIndex];
+                setCurrentCategory(
+                    (nextQuestion as any).category || currentCategory
+                );
+            }
+        } else {
+            // All questions completed
+            setShowRecommendations(true);
+            onShowRecommendations(true);
+        }
+    };
+
+    const generateRecommendations = (): Recommendation[] => {
+        const noAnswers = answers.filter((answer) => answer.answer === "no");
+
+        return noAnswers.map((answer) => {
+            const question = questions[answer.questionIndex];
+
+            if (companyInfo?.cloudStatus === "pre-cloud") {
+                const preCloudQ = question as PreCloudQuestion;
+                return {
+                    category: answer.category,
+                    question: answer.question,
+                    regulations: preCloudQ.regulations,
+                    actions: preCloudQ.actions,
+                };
+            } else {
+                const postCloudQ = question as PostCloudQuestion;
+                return {
+                    category: answer.category,
+                    question: answer.question,
+                    regulatoryBody: postCloudQ.regulatoryBody,
+                    remediation: postCloudQ.remediation,
+                };
             }
         });
-
-        return recommendations;
     };
 
     const handleRestart = () => {
-        setCurrentCategoryIndex(0);
         setCurrentQuestionIndex(0);
         setAnswers([]);
         setShowRecommendations(false);
+        onShowRecommendations(false);
+        if (questions.length > 0) {
+            const firstQuestion = questions[0];
+            setCurrentCategory(
+                companyInfo?.cloudStatus === "pre-cloud"
+                    ? "Pre-Cloud Assessment"
+                    : (firstQuestion as any).category || categories[0]
+            );
+        }
     };
+
+    if (!companyInfo || questions.length === 0) {
+        return (
+            <Card className="w-full max-w-4xl mx-auto">
+                <CardContent className="pt-6">
+                    <p className="text-center text-gray-600">
+                        No questions available. Please check your company
+                        information.
+                    </p>
+                </CardContent>
+            </Card>
+        );
+    }
 
     if (showRecommendations) {
         return (
             <RecommendationList
-                recommendations={getRecommendations()}
+                recommendations={generateRecommendations()}
                 companyInfo={companyInfo}
                 onRestart={handleRestart}
             />
@@ -119,7 +187,7 @@ export function RecommendationSystem({
                             <div className="flex justify-between text-sm text-muted-foreground mb-2">
                                 <span>Progress</span>
                                 <span>
-                                    {answeredQuestions} of {totalQuestions}{" "}
+                                    {answers.length} of {totalQuestions}{" "}
                                     questions
                                 </span>
                             </div>
@@ -137,11 +205,14 @@ export function RecommendationSystem({
             </Card>
 
             <QuestionCard
-                category={currentCategory}
-                regulatorySpec={currentQuestion.regulatorySpec}
                 question={currentQuestion.question}
-                questionNumber={answeredQuestions + 1}
+                questionNumber={answers.length + 1}
                 totalQuestions={totalQuestions}
+                regulatoryBody={
+                    companyInfo?.cloudStatus === "pre-cloud"
+                        ? (currentQuestion as PreCloudQuestion).regulations
+                        : (currentQuestion as PostCloudQuestion).regulatoryBody
+                }
                 onAnswer={handleAnswer}
             />
         </div>

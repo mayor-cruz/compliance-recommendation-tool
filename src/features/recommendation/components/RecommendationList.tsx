@@ -214,16 +214,32 @@ export function RecommendationList({
                                                 </div>
                                                 <div className="bg-blue-50 p-3 rounded-md">
                                                     <div className="text-sm font-medium text-blue-900 mb-1">
-                                                        Recommended Action:
+                                                        {rec.actions
+                                                            ? "Recommended Actions:"
+                                                            : "Remediation Steps:"}
                                                     </div>
                                                     <div className="text-sm text-blue-800">
-                                                        {rec.remediation}
+                                                        {rec.actions ||
+                                                            rec.remediation}
                                                     </div>
                                                 </div>
-                                                <div className="text-xs text-gray-500">
-                                                    Regulatory Specification:{" "}
-                                                    {rec.regulatorySpec}
-                                                </div>
+                                                {(rec.regulations ||
+                                                    rec.regulatoryBody) && (
+                                                    <div className="text-xs text-gray-500">
+                                                        Regulatory Requirements:{" "}
+                                                        {(
+                                                            rec.regulations ||
+                                                            rec.regulatoryBody
+                                                        )?.join(", ")}
+                                                    </div>
+                                                )}
+                                                {rec.regulatorySpec && (
+                                                    <div className="text-xs text-gray-500">
+                                                        Regulatory
+                                                        Specification:{" "}
+                                                        {rec.regulatorySpec}
+                                                    </div>
+                                                )}
                                             </div>
                                         ))}
                                     </div>

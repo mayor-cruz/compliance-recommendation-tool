@@ -1,520 +1,510 @@
 export const COMPLIANCE_CHECKLIST = {
-    "Governance & Policy": [
+    "pre-cloud": [
         {
             question:
-                "Do you maintain a written Data Protection Policy that meets NDPR requirements?",
-            remediation:
-                "Draft and publish an NDPR-aligned policy covering processing, retention, DPIA, breach response, etc.",
-            regulatorySpec: "NDPR",
+                "Do you understand what types of data your fintech collects and the protection requirements for each?",
+            regulations: ["NDPR", "CBN"],
+            actions:
+                "Create comprehensive data inventory spreadsheet. Classify data as: Customer PII, Financial transactions, Internal operations, Public information.",
         },
         {
             question:
-                "Have you formally appointed a Data Protection Officer (DPO) with budget and authority?",
-            remediation:
-                "Define the DPO role, secure independent budget and authority, and document in org chart.",
-            regulatorySpec: "NDPR",
+                "Have you mapped out the data that will be processed by the service provider?",
+            regulations: ["Nigeria Data Protection Regulation (NDPR)"],
+            actions:
+                "Run an automated data-discovery scan across all systems to inventory personal and sensitive data. Classify data into “public,” “internal,” “confidential,” and “restricted” buckets. Maintain this classification in a living data-catalogue, updated quarterly, with assigned custodians for each data type.",
         },
         {
             question:
-                "Is there a Data Protection & Compliance Committee that meets regularly?",
-            remediation:
-                "Establish a cross-functional committee, set meeting cadence, and record minutes.",
-            regulatorySpec: "NDPR",
+                "Have you conducted a Data Protection Impact Assessment (DPIA) for your cloud migration?",
+            regulations: ["NDPR"],
+            actions:
+                "Complete DPIA covering all planned cloud processing activities. Assess risks to data subjects, mitigation measures, necessity and proportionality. Consult DPO throughout process. Required for high-risk processing under NDPR.",
+        },
+        {
+            question: "Will data be processed outside the shores of Nigeria,",
+            regulations: ["NITDA & CBN"],
+            actions: "",
         },
         {
             question:
-                "Do you keep a central register of all applicable regulations (NDPR, CBN circulars, Cybercrimes Act)?",
-            remediation:
-                "Compile all relevant laws into a living register; assign owners for quarterly review.",
-            regulatorySpec: "NDPR/CBN/Cybercrimes Act",
+                "Do you understand the data residency requirements for different types of data?",
+            regulations: ["CBN"],
+            actions:
+                "Study CBN guidelines on cross-border data transfers. Map your data types to residency requirements: Core banking data (must stay in Nigeria), Marketing data (can be global), Analytics data (depends on content). Create data residency matrix.",
         },
         {
             question:
-                "Has senior management signed off on a company-wide privacy governance framework?",
-            remediation:
-                "Present framework to execs, obtain formal sign-off, and communicate to all staff.",
-            regulatorySpec: "NDPR",
+                "If so, from which territory(ies) will the outsourced cloud services be provided and the location of the data",
+            regulations: ["NDPR"],
+            actions: "",
         },
         {
             question:
-                "Do you have a DPIA policy covering what, how, and why you process personal data?",
-            remediation:
-                "Write a DPIA policy template including scope, triggers, and approval process; distribute to project teams.",
-            regulatorySpec: "NDPR",
-        },
-    ],
-    "Risk, Audit & Review": [
-        {
-            question:
-                "Are quarterly compliance reviews scheduled and documented?",
-            remediation:
-                "Create recurring calendar events, assign reviewers, and log findings in your compliance dashboard.",
-            regulatorySpec: "NDPR",
+                "Have you prepared Standard Contractual Clauses (SCCs) for any data that may cross borders?",
+            regulations: ["NDPR"],
+            actions:
+                "Obtain NDPR-compliant SCC templates from legal counsel. Customize for your specific data processing activities. Include adequacy assessments for destination countries. Store templates in legal repository for vendor contracts.",
         },
         {
             question:
-                "Do you have an annual audit plan covering NDPR, CBN and NITDA requirements?",
-            remediation:
-                "Draft a 12-month audit schedule, map each regulator’s scope, and assign audit leads.",
-            regulatorySpec: "NITDA/CBN",
+                "Has due diligence been performed on the choice of service provider",
+            regulations: ["CBN"],
+            actions:
+                "Develop a vendor-risk rating model that scores each provider on security certifications, financial health, legal history, and SLA performance.",
         },
         {
             question:
-                "Have you performed a full privacy/security audit of your fintech platforms in the last 12 months?",
-            remediation:
-                "Engage an internal or external audit team to run assessments; document and remediate gaps.",
-            regulatorySpec: "NDPR",
+                "Have you considered other risks in relation to the proposed outsourcing arrangement",
+            regulations: ["CBN"],
+            actions:
+                "Maintain a dynamic “outsourcing risk register” that logs each risk (legal, operational, reputational, geographic, concentration) with owner, mitigation plan, and review date.",
         },
         {
             question:
-                "Do you maintain a compliance dashboard that tracks incidents, DPIAs, and training completion?",
-            remediation:
-                "Build or procure a dashboard; integrate data sources for real-time KPI reporting.",
-            regulatorySpec: "NDPR",
+                "Have you evaluated different cloud service models (IaaS, PaaS, SaaS) for your needs and have an understanding of the shared responsibility model",
+            regulations: ["CBN"],
+            actions:
+                "Map all data flows in and out of your network using a Data Flow Diagram. Contractually restrict storage and processing to approved regions (e.g., Nigeria, ECOWAS, EU) by including explicit data-residency clauses. Audit your provider’s region settings every release cycle to ensure no inadvertent geo-drift.",
         },
         {
             question:
-                "Do you auto-ingest regulatory updates from CBN and NITDA into your compliance roadmap?",
-            remediation:
-                "Set up email/webhook subscriptions to regulator RSS feeds; pipe updates into your issue-tracker.",
-            regulatorySpec: "NITDA/CBN",
-        },
-    ],
-    "Data Inventory & Classification": [
-        {
-            question:
-                "Have you mapped every place you collect or store personal data (apps, forms, email, CCTV, backups)?",
-            remediation:
-                "Run a discovery exercise; document all collection/storage touchpoints in your data-inventory tool.",
-            regulatorySpec: "NDPR",
+                "Do you have and maintain a policy relating to cloud outsourcing?",
+            regulations: [],
+            actions:
+                "Draft a Board-approved Outsourcing Policy covering vendor selection, monitoring cadence, risk-thresholds, exit-planning, and audit rights. Publish it to all business units, and conduct an annual training refresher with sign-off tracking.",
         },
         {
             question:
-                "Do you track where each dataset lives (on-prem, cloud provider, region)?",
-            remediation:
-                "Inventory all data stores; tag each with location metadata in your CMDB.",
-            regulatorySpec: "NDPR/CBN",
+                "Do you have the right to audit your outsourcing partner (Cloud Provider)",
+            regulations: [],
+            actions:
+                "Embed an “Audit & Inspection” clause in every vendor contract granting: on-site visits, production of logs/documentation, and right to interview vendor staff. Keep a calendar of scheduled audits and confirm completion within 30 days of each engagement.",
         },
         {
             question:
-                "Have you classified all datasets by sensitivity (Public, Internal, Confidential, PII)?",
-            remediation:
-                "Define sensitivity tiers, apply labels in your data-catalogue or CMDB, and remediate unclassified assets.",
-            regulatorySpec: "NDPR",
+                "Do you maintain a register of information on all outsourcing arrangements?",
+            regulations: ["CBN"],
+            actions:
+                "Implement a living Outsourcing Register (in your GRC tool or a secured spreadsheet) listing: provider name, service scope, data categories, start/end dates, SLAs, audit-rights, and exit-plan reference. Review and reconcile it with Finance and Legal every quarter.",
         },
         {
             question:
-                "Do you record the legal basis (consent, contract, legal obligation) for each processing activity?",
-            remediation:
-                "Update your processing register with lawful-basis field; train teams to fill it on project kickoff.",
-            regulatorySpec: "NDPR",
+                "Are the outsourcing arrangements contained in a documented legally binding agreement that is signed by all parties?",
+            regulations: ["CBN"],
+            actions:
+                "Enforce a “No Service without Contract” rule: no vendor onboarding or payment until a fully executed agreement is in place. Track contract signatures in your CLM system and block any exceptions.",
         },
         {
             question:
-                "Is your CMDB up to date with data-classification labels and regional tags?",
-            remediation:
-                "Run automated scans, reconcile drift, and require tag compliance in CI/CD.",
-            regulatorySpec: "NDPR/CBN",
-        },
-    ],
-    "Data-Subject Rights & Consent": [
-        {
-            question:
-                "Is there a public portal for users to request access, correction, or deletion of their data?",
-            remediation:
-                "Build or integrate a self-service portal; publish its URL on your website.",
-            regulatorySpec: "NDPR",
+                "Does the outsourcing agreement include a clause that allows competent authorities to access documentation and information relating to the outsourcing arrangement?",
+            regulations: ["CBN"],
+            actions:
+                "Standardize a “Regulator Access” clause in all contract templates, referencing the exact statutory right. Have Legal verify its inclusion before every signature.",
         },
         {
             question:
-                "Do you have SLA-backed procedures for subject-access, correction, and erasure requests?",
-            remediation:
-                "Draft runbooks with SLAs (e.g. 30 days); train support to follow and log every request.",
-            regulatorySpec: "NDPR",
+                "Does the outsourcing agreement provide for data and system security requirements within the outsourcing agreement and does the financial institution monitor compliance with these requirements on an ongoing basis?",
+            regulations: ["CBN"],
+            actions:
+                "Define a “Security Requirements Matrix” in each contract: encryption standards, DLP controls, MFA enforcement, incident-notification timelines, and pen-test frequency. Schedule quarterly compliance reviews with evidence submission from the provider.",
         },
         {
             question:
-                "Is every cross-border data transfer preceded by an explicit, auditable opt-in?",
-            remediation:
-                "Update collection flows to require checkbox consent; log timestamped receipts.",
-            regulatorySpec: "NDPR",
+                "Are the provider’s services subject to any third-party audit?",
+            regulations: ["CBN"],
+            actions:
+                "Mandate ISO 27001 (or equivalent) certification as a minimum. Obtain and review each audit report upon issuance, then confirm remediation of any high-risk issues within 60 days.",
         },
         {
             question:
-                "Do you review consent withdrawals and erasure requests at least quarterly?",
-            remediation:
-                "Schedule quarterly reviews and reconcile any pending requests.",
-            regulatorySpec: "NDPR",
+                "How is the financial institution’s data isolated from other data held by the service provider?",
+            regulations: ["NDPR"],
+            actions:
+                "Require proof of logical isolation: tenant-segmentation diagrams, VPC/network isolation details.",
+        },
+        {
+            question: "How are the service provider’s access logs monitored?",
+            regulations: ["CBN"],
+            actions:
+                "Stream provider audit logs into your centralized SIEM with role-based dashboards and automated alerts for anomalous activity. Review alerts weekly and run quarterly log-review workshops with IT Security.",
         },
         {
             question:
-                "Are your privacy notices written in clear, local-language terms?",
-            remediation:
-                "Rewrite notices in simple English or local language; test with user groups.",
-            regulatorySpec: "NDPR",
+                "Do you have a security incident classification and escalation matrix?",
+            regulations: ["CBN"],
+            actions:
+                "Define incident severity levels (P0-P4) with specific escalation timelines. Create communication trees for different incident types. Build compliance dashboards for senior management.",
         },
-    ],
-    "Data Residency & Sovereignty": [
         {
-            question:
-                "Is all sensitive PII and transaction data stored in Nigerian data centres?",
-            remediation:
-                "Migrate any offshore databases to in-country regions; block cross-region replication.",
-            regulatorySpec: "CBN/NDPR",
+            question: "How are customers authenticated?",
+            regulations: ["CBN"],
+            actions:
+                "Mandate MFA for all user-facing and administrative access. Implement adaptive authentication (risk-based step-up) and audit authentication logs monthly for failed/suspicious attempts.",
         },
         {
             question:
-                "Have you identified which datasets must remain in-country under CBN/NDPR rules?",
-            remediation:
-                "Conduct data-sovereignty assessment; tag and lock down regulated datasets.",
-            regulatorySpec: "CBN/NDPR",
+                "Have you planned identity and access management for cloud resources?",
+            regulations: [],
+            actions: "Design centralized identity management.",
         },
         {
             question:
-                "Do you automatically tag resources requiring in-Nigeria residency via your IaC?",
-            remediation:
-                "Update IaC modules (Terraform/ARM) to add residency:ng tags; enforce via policy-as-code.",
-            regulatorySpec: "CBN/NDPR",
+                "What security controls are in place to protect the transmission and storage of confidential information such as customer data within the infrastructure of the service provider?",
+            regulations: ["CBN", "NDPR"],
+            actions:
+                "Specify encryption-in-transit (TLS 1.2+) and encryption-at-rest (AES 256+) requirements in every contract. Quarterly test encryption compliance via packet captures and storage audits.",
         },
         {
             question:
-                "Are you blocking any off-shore replication of regulated data?",
-            remediation:
-                "Implement network/security group rules to deny cross-region copies for tagged resources.",
-            regulatorySpec: "CBN/NDPR",
+                "Do you have endpoint detection and response (EDR) planned for all devices?",
+            regulations: [],
+            actions:
+                "Deploy EDR solution (CrowdStrike, Microsoft Defender, SentinelOne) on all employee devices and cloud workloads. Configure behavioral detection rules. Plan for remote device management. Integrate with SIEM for centralized monitoring.",
         },
         {
             question:
-                "For offshore transfers, do you maintain Standard Contractual Clauses or documented derogations?",
-            remediation:
-                "Store SCC templates and derogation logs in your contract repository; link to each transfer.",
-            regulatorySpec: "NDPR",
-        },
-    ],
-    "DPIA & Privacy-by-Design": [
-        {
-            question:
-                "Do you complete a DPIA for every new product launch or major cloud migration?",
-            remediation:
-                "Add DPIA as a mandatory template in your project intake; block releases without DPIA sign-off.",
-            regulatorySpec: "NDPR",
+                "Have you planned vulnerability management and security patching procedures?",
+            regulations: [],
+            actions:
+                "Implement automated vulnerability scanning tools (Qualys, Rapid7, or cloud-native solutions). Define patching SLAs: Critical (24hrs), High (7 days), Medium (30 days). Plan for zero-day response procedures.",
         },
         {
             question:
-                "Have you evaluated DPIA automation tools (e.g. OpenRMF, Conftest)?",
-            remediation:
-                "Run a proof-of-concept on OpenRMF or Conftest; document fit/gap analysis.",
-            regulatorySpec: "NDPR",
+                "Are there procedures established to securely destroy or remove the data when the need arises (for example, when the contract terminates)?",
+            regulations: ["NDPR"],
+            actions:
+                "Define data-retention schedules and secure-deletion workflows in your Data-Lifecycle Policy. Validate deletion via forensic analysis or deletion logs within 30 days of contract end.",
         },
         {
             question:
-                "Do you embed privacy checkpoints and threat modeling into your sprint process?",
-            remediation:
-                "Insert “privacy review” tickets in each sprint; train devs on threat-modeling templates.",
-            regulatorySpec: "NDPR",
+                "Are there documented security procedures for safeguarding hardware, software and data in the datacenter?",
+            regulations: ["CBN"],
+            actions:
+                "Obtain a hardcopy of the provider’s Physical Security Standard and ensure it includes perimeter defenses, biometric access, CCTV, and environmental controls. Commission an annual third-party physical-security audit and review findings.",
+        },
+        {
+            question:
+                "Does the financial institution have a disaster recovery or business continuity plan with regard to outsourced critical or important functions?",
+            regulations: ["CBN"],
+            actions:
+                "Collect the provider’s DR/BCP plan, run joint tabletop scenarios annually, and measure your RTO/RPO against SLA targets.",
+        },
+        {
+            question:
+                "What are the data backup and recovery arrangements for your organisation’s data that resides with the service provider?",
+            regulations: ["CBN"],
+            actions:
+                "Define RTO/RPO targets in your SLA. Perform quarterly restore-testing from backups in multiple regions, and document success/failure rates in your Backup Audit Report.",
+        },
+        {
+            question:
+                "What process does the financial institution have when outsourcing to service providers located in third-countries?",
+            regulations: [],
+            actions:
+                "Perform country-risk assessments using a standardized template (covering legal, political, infrastructure stability). Mandate contractual safeguards—SCCs, local agent appointment, and right to audit—in all third-country outsourcing agreements.",
         },
     ],
-    "Encryption & Key Management": [
-        {
-            question:
-                "Do you enforce TLS 1.2+ (or TLS 1.3) for all network traffic?",
-            remediation:
-                "Update load-balancer and API gateway configs to disable TLS <1.2.",
-            regulatorySpec: "NITDA/NDPR",
-        },
-        {
-            question:
-                "Is AES-256 (or stronger) enabled on all databases and storage buckets?",
-            remediation:
-                "Enable at-rest encryption in RDS/S3/Blob settings; rotate keys annually.",
-            regulatorySpec: "NDPR",
-        },
-        {
-            question:
-                "Are encryption keys stored in a KMS/HSM within Nigeria and tagged for audit?",
-            remediation:
-                "Migrate keys to Nigeria-region KMS/HSM; apply tags (region:ng,purpose).",
-            regulatorySpec: "CBN/NDPR",
-        },
-        {
-            question:
-                "Do you offer client-side encryption so data is encrypted before leaving your app?",
-            remediation:
-                "Integrate mobile/web SDKs for client crypto; manage keys via secure API.",
-            regulatorySpec: "NDPR",
-        },
-    ],
-    "Access Control & Authentication": [
-        {
-            question:
-                "Is multi-factor authentication (MFA) required for every user, especially admins?",
-            remediation:
-                "Enforce MFA via AD/OIDC policies; block console/API access without MFA.",
-            regulatorySpec: "NITDA/NDPR",
-        },
-        {
-            question:
-                "Do you enforce role-based access control (RBAC) on all sensitive systems and data?",
-            remediation:
-                "Define least-privilege roles; remediate any user over-privilege.",
-            regulatorySpec: "NDPR/NITDA",
-        },
-        {
-            question: "Is your IAM centrally managed and reviewed quarterly?",
-            remediation:
-                "Implement Azure AD/AWS IAM centralized policies; schedule quarterly reviews.",
-            regulatorySpec: "NITDA",
-        },
-        {
-            question:
-                "Do you log all privileged-user actions (console/API) and forward them to your SIEM?",
-            remediation:
-                "Enable CloudTrail/Azure Monitor; set up SIEM ingestion with immutable logs.",
-            regulatorySpec: "NITDA",
-        },
-    ],
-    "Logging & Monitoring": [
-        {
-            question:
-                "Are audit trails enabled for every personal-data operation in your cloud?",
-            remediation:
-                "Turn on audit logging for all DBs, buckets, and services handling PII.",
-            regulatorySpec: "NDPR/NITDA",
-        },
-        {
-            question:
-                "Do you aggregate logs (app, infra, network) in a secure SIEM and retain them for ≥ 1 year?",
-            remediation:
-                "Configure log-shipper agents; enforce retention policies ≥ 1 year.",
-            regulatorySpec: "NDPR",
-        },
-        {
-            question:
-                "Do you run real-time compliance alerts for policy violations and abnormal behavior?",
-            remediation:
-                "Define SIEM alerts on IAM anomalies, data-exfil patterns, and control failures.",
-            regulatorySpec: "NDPR",
-        },
-        {
-            question:
-                "Are your log-retention policies mapped to NDPR and Cybercrimes Act requirements?",
-            remediation:
-                "Update retention settings in SIEM/storage to align with regulatory minima.",
-            regulatorySpec: "NDPR/Cybercrimes Act",
-        },
-    ],
-    "Incident Response & Recovery": [
-        {
-            question:
-                "Do you have a documented breach-response plan with clear roles, escalation paths, and SLAs?",
-            remediation:
-                "Draft and publish an incident playbook; train teams and define SLAs (e.g. 72 hrs to notify NITDA).",
-            regulatorySpec: "NDPR/CBN",
-        },
-        {
-            question:
-                "Have you run at least one tabletop exercise in the past 12 months?",
-            remediation:
-                "Schedule and conduct a breach-drill simulating NDPR-required scenarios.",
-            regulatorySpec: "NDPR",
-        },
-        {
-            question:
-                "Do you maintain a breach registry capturing dates, impacts, root causes, and remediation steps?",
-            remediation:
-                "Build an incident log in your CMDB or ITSM tool; require post-mortem for each event.",
-            regulatorySpec: "NDPR",
-        },
-        {
-            question:
-                "Have you tested your disaster-recovery failover procedures for critical cloud workloads?",
-            remediation:
-                "Perform DR drills on core services; document RTO/RPO results and gaps.",
-            regulatorySpec: "NITDA",
-        },
-    ],
-    "Retention & Deletion": [
-        {
-            question:
-                "Are retention schedules defined for every data category and communicated to data owners?",
-            remediation:
-                "Draft a retention matrix; implement lifecycle rules in your storage and DLP.",
-            regulatorySpec: "NDPR",
-        },
-        {
-            question:
-                "Is automated secure deletion configured to run when retention expires?",
-            remediation:
-                "Configure auto-purge rules (S3 Lifecycle, DB purge jobs); log each deletion event.",
-            regulatorySpec: "NDPR",
-        },
-        {
-            question:
-                "Do you perform periodic reviews of data accuracy and opportunities for minimization?",
-            remediation:
-                "Schedule data-quality audits; report findings and delete obsolete records.",
-            regulatorySpec: "NDPR",
-        },
-    ],
-    "Vendor & Contract Management": [
-        {
-            question:
-                "Do you maintain a vendor registry of all third-party data processors and their compliance status?",
-            remediation:
-                "Compile a processor list in your GRC tool; update annually.",
-            regulatorySpec: "NDPR/CBN",
-        },
-        {
-            question:
-                "Are NDPR-compliant clauses (residency, breach notice, audit rights) included in every contract?",
-            remediation:
-                "Amend all active contracts; add clause templates to legal playbook.",
-            regulatorySpec: "NDPR",
-        },
-        {
-            question:
-                "Do your cloud vendors hold ISO 27001 (or equivalent) and prove in-country data residency?",
-            remediation:
-                "Request and store proof of certification and region-specific hosting.",
-            regulatorySpec: "NITDA/CBN",
-        },
-        {
-            question:
-                "Do you reevaluate RegTech and cloud-service vendors annually for Nigerian-law compatibility?",
-            remediation:
-                "Conduct annual vendor scorecard reviews; document any gaps and remediation plans.",
-            regulatorySpec: "NDPR/NITDA",
-        },
-    ],
-    "Training & Awareness": [
-        {
-            question:
-                "Have you trained all staff on NDPR, CBN/NITDA cloud guidelines, and breach protocols in the last year?",
-            remediation:
-                "Roll out e-learning modules; track completions; schedule make-ups for non-attendees.",
-            regulatorySpec: "NDPR/NITDA",
-        },
-        {
-            question:
-                "Do you run annual NDPR workshops or seminars for fintech teams and external partners?",
-            remediation:
-                "Schedule and record workshops; collect feedback for continuous improvement.",
-            regulatorySpec: "NDPR",
-        },
-        {
-            question: "Is DPO training refreshed annually and documented?",
-            remediation:
-                "Enroll DPO in refresher courses; log certifications and renewal dates.",
-            regulatorySpec: "NDPR",
-        },
-    ],
-    "Continuous Improvement": [
-        {
-            question:
-                "Do you review policies, registers, and procedures at least once a year?",
-            remediation:
-                "Create a policy-review calendar; assign owners and track completion.",
-            regulatorySpec: "NDPR",
-        },
-        {
-            question:
-                "Are compliance KPIs and audit findings fed back into your project backlog?",
-            remediation:
-                "Integrate audit tickets into your issue tracker; assign remediation tasks.",
-            regulatorySpec: "NDPR",
-        },
-        {
-            question:
-                "Do you conduct tabletop drills for new threat scenarios every year?",
-            remediation:
-                "Plan and execute tabletop exercises covering emerging NDPR/Cyberthreat cases.",
-            regulatorySpec: "NDPR",
-        },
-        {
-            question:
-                "Is your cloud security policy updated whenever you add a new service or region?",
-            remediation:
-                "Require policy update tickets in your change-management process.",
-            regulatorySpec: "NITDA/NDPR",
-        },
-    ],
-    "Final Sanity Checks": [
-        {
-            question:
-                "Do you collect and process personal data only via approved, secure channels?",
-            remediation:
-                "Disable legacy collection methods; standardize on secure forms and APIs.",
-            regulatorySpec: "NDPR",
-        },
-        {
-            question:
-                "Have you documented all your processing activities in a central log or tool?",
-            remediation:
-                "Consolidate processing records into a single registry; enforce updates on project close.",
-            regulatorySpec: "NDPR",
-        },
-        {
-            question:
-                "Do you regularly reclassify data as it ages or as use cases change?",
-            remediation:
-                "Schedule annual reclassification; archive or delete outdated data.",
-            regulatorySpec: "NDPR",
-        },
-        {
-            question:
-                "Are you clear on whether you act as a Data Controller or Data Processor for each system?",
-            remediation:
-                "Run a role-mapping exercise; document in policies and contracts.",
-            regulatorySpec: "NDPR",
-        },
-        {
-            question:
-                "Do you enforce least-privilege on every new service account and API key?",
-            remediation:
-                "Implement automated IAM scans; revoke unnecessary privileges.",
-            regulatorySpec: "NITDA",
-        },
-        {
-            question:
-                "Have you tested capacity-planning to avoid outages under peak load?",
-            remediation:
-                "Run load/stress tests; update capacity plans in your DR documentation.",
-            regulatorySpec: "NITDA",
-        },
-        {
-            question:
-                "Is your CI/CD pipeline integrated with automated compliance checks (policy-as-code)?",
-            remediation:
-                "Add linting, schema validations, and policy-as-code gates to your pipeline.",
-            regulatorySpec: "NITDA/NDPR",
-        },
-        {
-            question:
-                "Do you maintain a list of all outbound transfers and the legal basis for each?",
-            remediation:
-                "Document transfer registry with dates, destinations, and lawful basis.",
-            regulatorySpec: "NDPR",
-        },
-        {
-            question:
-                "Have you built a self-service portal for data-subject requests with audit trails?",
-            remediation:
-                "Develop or integrate a portal; log every user action for audit.",
-            regulatorySpec: "NDPR",
-        },
-        {
-            question:
-                "Do you run phishing and social-engineering simulations at least twice a year?",
-            remediation:
-                "Plan simulation exercises; capture metrics and remediate low-scoring areas.",
-            regulatorySpec: "NDPR",
-        },
-        {
-            question:
-                "Have you documented the zero-trust controls you apply (micro-segmentation, identity proxies)?",
-            remediation:
-                "Create a controls catalogue; map each control to its implementation and review quarterly.",
-            regulatorySpec: "NITDA",
-        },
-    ],
+
+    "post-cloud": {
+        "Regulatory Compliance": [
+            {
+                question:
+                    "Are you certified to the relevant cloud regulatory requirements (ISO27017) and ISO27001",
+                regulatoryBody: [],
+                remediation: "",
+            },
+        ],
+        "Data Protection Compliance": [
+            {
+                question:
+                    "Do actively monitoring cloud data processing activities",
+                regulatoryBody: ["NDPR"],
+                remediation: "",
+            },
+            {
+                question:
+                    "Are all cloud-stored personal data properly classified and tagged accordingly?",
+                regulatoryBody: ["NDPR"],
+                remediation:
+                    "Implement automated data classification tools. Tag all PII with sensitivity levels. Create data discovery reports. Remediate unclassified data within 60 days.",
+            },
+            {
+                question:
+                    "Are Standard Contractual Clauses (SCCs) in place for all cross-border data transfers from your cloud?",
+                regulatoryBody: ["NDPR"],
+                remediation:
+                    "Execute NDPR-compliant SCCs with all international cloud providers and processors. Conduct transfer impact assessments. Implement additional safeguards where required. Register international transfers with NDPC.",
+            },
+            {
+                question:
+                    "Have you conducted Data Protection Impact Assessments (DPIAs) for all high-risk cloud processing activities?",
+                regulatoryBody: ["NDPR"],
+                remediation:
+                    "Complete DPIAs for AI/ML, profiling, large-scale PII processing, cross-border transfers. Implement recommended mitigation measures. Update DPIAS when processing changes. Store DPIA records for regulatory access.",
+            },
+        ],
+        "Data Residency Compliance": [
+            {
+                question:
+                    "Are all Nigerian customer financial records stored exclusively within Nigerian borders or approved locations?",
+                regulatoryBody: ["CBN", "NDPR"],
+                remediation:
+                    "Immediately audit data locations using cloud provider tools. Migrate non-compliant data to Nigerian regions within 90 days. Implement geo-blocking for data outside approved regions. Document data residency evidence.",
+            },
+            {
+                question:
+                    "Do you have automated controls preventing Nigerian financial data from being stored in unauthorized regions?",
+                regulatoryBody: ["CBN", "NDPR"],
+                remediation:
+                    "Deploy Azure Policy, AWS Organizations SCPs, or Google Cloud Organization Policies to block unauthorized regions. Set up real-time alerts for policy violations. Remove existing data from non-compliant regions.",
+            },
+            {
+                question:
+                    "Are backups and disaster recovery copies of Nigerian data stored in compliant locations?",
+                regulatoryBody: ["CBN", "NDPR"],
+                remediation:
+                    "Audit all backup locations including automated snapshots, archive storage, and DR replicas. Configure backup policies to use only approved regions. Test restore procedures from compliant locations.",
+            },
+        ],
+        "Cloud Security Compliance": [
+            {
+                question:
+                    "Are all cloud-stored sensitive data encrypted at rest using strong encryption algorithms?",
+                regulatoryBody: ["NDPR", "CBN"],
+                remediation:
+                    "Enable AES-256 encryption on all storage services. Audit existing unencrypted data and encrypt within 30 days. Document encryption key management procedures. Implement automated encryption compliance scanning.",
+            },
+            {
+                question:
+                    "Is all data in transit between cloud services and users encrypted with TLS 1.2 or higher?",
+                regulatoryBody: ["CBN"],
+                remediation:
+                    "Enforce TLS 1.2+ on all endpoints. Disable weak ciphers and protocols. Implement HTTP Strict Transport Security (HSTS). Conduct SSL/TLS configuration audits monthly.",
+            },
+            {
+                question:
+                    "Do you have multi-factor authentication enforced for all administrative access to cloud resources?",
+                regulatoryBody: ["CBN"],
+                remediation:
+                    "Enable MFA on all cloud administrator accounts. Remove SMS-based MFA for privileged accounts. Implement FIDO2 hardware keys for critical system access. Audit and remediate MFA bypass scenarios.",
+            },
+            {
+                question:
+                    "Are privileged access rights regularly reviewed and certified by business owners?",
+                regulatoryBody: ["CBN"],
+                remediation:
+                    "Implement quarterly access certification campaigns. Remove orphaned accounts and excessive permissions. Document business justification for all privileged access. Automate access reviews where possible.",
+            },
+            {
+                question:
+                    "Are automated compliance checks e.g., AWS Security Hub, Azure Blueprints enabled",
+                regulatoryBody: [],
+                remediation: "Enable automated cloud compliance checks",
+            },
+            {
+                question:
+                    "Do you have endpoint detection and response (EDR) deployed on all devices accessing cloud resources?",
+                regulatoryBody: ["CBN"],
+                remediation:
+                    "Deploy EDR agents on all employee devices and cloud workloads. Configure behavioral detection rules. Integrate EDR with SIEM for centralized monitoring. Maintain 100% agent deployment and health monitoring.",
+            },
+        ],
+        "SIEM & Monitoring Compliance": [
+            {
+                question:
+                    "Is comprehensive security logging enabled and ingested into a SIEM solution for all cloud services?",
+                regulatoryBody: ["CBN"],
+                remediation:
+                    "Enable audit logging on all cloud services (CloudTrail, Activity Logs, etc.). Configure log forwarding to SIEM. Implement log retention policies (7 years minimum). Test log ingestion and parsing regularly.",
+            },
+            {
+                question:
+                    "Are you monitoring for fintech-specific threats including payment fraud, account takeover, and API abuse?",
+                regulatoryBody: ["CBN", "EFCC"],
+                remediation:
+                    "Implement fintech threat detection rules using MITRE ATT&CK framework. Deploy User and Entity Behavior Analytics (UEBA). Create automated response playbooks. Test detection rules with simulated attacks monthly.",
+            },
+            {
+                question:
+                    "Do you have 24/7 security monitoring with documented incident response procedures?",
+                regulatoryBody: ["CBN", "NDPR"],
+                remediation:
+                    "Establish 24/7 SOC coverage (internal or MSSP). Document incident classification and escalation procedures. Include regulatory notification requirements. Conduct tabletop exercises quarterly.",
+            },
+            {
+                question:
+                    "Are security logs retained for the required 7-year period in tamper-proof storage?",
+                regulatoryBody: ["CBN"],
+                remediation:
+                    "Configure automated log archiving to immutable storage (S3 Object Lock, Azure Immutable Blobs). Implement legal hold capabilities. Test log retrieval procedures quarterly. Maintain chain of custody documentation.",
+            },
+            {
+                question:
+                    "Do you have cross-service correlation rules for detecting suspicious patterns across multiple cloud services and accounts?",
+                regulatoryBody: ["CBN"],
+                remediation:
+                    "Implement cross-service correlation rules for: unusual login patterns, privilege escalation, data exfiltration, payment anomalies. Tune rules to reduce false positives. Document investigation procedures.",
+            },
+            {
+                question:
+                    "Are threat intelligence feeds integrated into your SIEM to detect Nigerian-specific financial threats?",
+                regulatoryBody: ["CBN"],
+                remediation:
+                    "Integrate Nigerian threat intelligence feeds (AfricaCERT, local financial IOCs). Configure automated threat hunting queries. Map threats to Nigerian financial crime typologies. Update feeds regularly.",
+            },
+        ],
+        "Vulnerability Management": [
+            {
+                question:
+                    "Do you have automated vulnerability scanning covering all cloud workloads and configurations?",
+                regulatoryBody: ["CBN"],
+                remediation:
+                    "Deploy vulnerability scanning tools for cloud infrastructure and applications. Configure weekly scans and real-time monitoring. Integrate with patch management systems. Maintain vulnerability dashboards.",
+            },
+            {
+                question:
+                    "Are critical security patches applied within 24 hours and other patches within defined SLAS?",
+                regulatoryBody: ["CBN"],
+                remediation:
+                    "Implement automated patching for critical vulnerabilities. Define patching SLAs: Critical (24hrs), High (7 days), Medium (30 days). Track patch compliance rates. Maintain emergency patching procedures.",
+            },
+            {
+                question:
+                    "Do you conduct regular penetration testing of your cloud infrastructure and applications?",
+                regulatoryBody: ["CBN"],
+                remediation:
+                    "Schedule quarterly penetration testing by certified firms. Include API security testing, cloud configuration reviews, and social engineering. Remediate critical findings within 30 days. Maintain penetration test reports.",
+            },
+            {
+                question:
+                    "Are cloud security configurations continuously monitored against security baselines?",
+                regulatoryBody: ["CBN"],
+                remediation:
+                    "Implement cloud security posture management (CSPM) tools. Define security baselines for all cloud services. Configure automated remediation for policy violations. Generate compliance reports monthly.",
+            },
+        ],
+        "Business Continuity & DR": [
+            {
+                question:
+                    "Are Recovery Point Objectives (RPO) and Recovery Time Objectives (RTO) being met for all critical systems?",
+                regulatoryBody: ["CBN"],
+                remediation:
+                    "Monitor actual backup and recovery performance against defined RPO/RTO targets. Implement automated backup verification. Conduct monthly recovery tests. Document performance metrics and improvement plans.",
+            },
+            {
+                question:
+                    "Are disaster recovery procedures tested regularly with documented results?",
+                regulatoryBody: ["CBN"],
+                remediation:
+                    "Conduct quarterly DR tests including full system failovers. Document test results, issues, and remediation. Update DR procedures based on test outcomes. Maintain DR runbooks in version control.",
+            },
+            {
+                question:
+                    "Do you have immutable backups that protect against ransomware and insider threats?",
+                regulatoryBody: ["CBN"],
+                remediation:
+                    "Implement WORM storage for critical backups. Maintain air-gapped backup copies. Test backup integrity regularly. Configure backup deletion protection and audit trails.",
+            },
+            {
+                question:
+                    "Are backup restoration procedures tested monthly with data integrity validation?",
+                regulatoryBody: ["CBN"],
+                remediation:
+                    "Schedule automated backup restoration tests to isolated environments. Validate data integrity using checksums and application tests. Document restoration timeframes. Maintain restoration success rates above 95%.",
+            },
+            {
+                question:
+                    "Do you have multi-region deployment capabilities for business continuity?",
+                regulatoryBody: ["CBN"],
+                remediation:
+                    "Implement active-passive or active-active deployment across multiple cloud regions. Configure automated failover mechanisms. Test cross-region connectivity and data synchronization. Maintain region failover procedures.",
+            },
+        ],
+        "Third Party Risk Management": [
+            {
+                question:
+                    "Are all cloud service providers and SaaS vendors properly vetted and under contract with appropriate security clauses?",
+                regulatoryBody: ["CBN"],
+                remediation:
+                    "Conduct security assessments of all cloud vendors. Ensure contracts include data protection clauses, audit rights, breach notification terms. Maintain vendor risk register. Review vendor compliance annually.",
+            },
+            {
+                question:
+                    "Do you have Business Associate Agreements (BAAs) or Data Processing Agreements (DPAs) with cloud providers?",
+                regulatoryBody: ["NDPR"],
+                remediation:
+                    "Execute DPAs with all cloud providers processing Nigerian data. Ensure DPAs include NDPR compliance requirements. Document data processing activities and purposes. Review and update DPAs annually.",
+            },
+            {
+                question:
+                    "Are vendor security controls independently verified through certifications or assessments?",
+                regulatoryBody: ["NDPR"],
+                remediation:
+                    "Verify cloud provider SOC 2 Type II, ISO 27001, and other relevant certifications. Request vendor security questionnaires. Conduct on-site assessments for critical vendors. Maintain certification evidence.",
+            },
+        ],
+        "Incident Response Compliance": [
+            {
+                question:
+                    "Are security incidents properly classified, investigated, and reported to relevant Nigerian authorities?",
+                regulatoryBody: ["CBN"],
+                remediation:
+                    "Implement incident classification matrix aligned with Nigerian regulations. Train staff on incident reporting requirements. Maintain direct contacts with NITDA, CBN, EFCC. Document all incidents and regulatory notifications.",
+            },
+            {
+                question:
+                    "Do you have documented procedures for notifying NDPC and CBN within 72 hours of personal data breaches?",
+                regulatoryBody: ["NDPR"],
+                remediation:
+                    "Create automated breach notification workflows. Pre-populate NDPC notification templates. Train incident response team on NDPR notification requirements. Test notification procedures quarterly.",
+            },
+            {
+                question:
+                    "Are forensic capabilities available to support incident investigations and regulatory requirements?",
+                regulatoryBody: ["CBN"],
+                remediation:
+                    "Establish digital forensics capabilities (internal or contracted). Maintain forensic imaging tools and procedures. Ensure evidence chain of custody procedures. Train investigators on Nigerian legal requirements.",
+            },
+            {
+                question:
+                    "Do you have communication procedures for customer and stakeholder notification during incidents?",
+                regulatoryBody: ["CBN"],
+                remediation:
+                    "Develop incident communication templates for customers, regulators, media, and stakeholders. Establish communication decision trees. Pre-approve key messages with legal team. Practice crisis communications regularly.",
+            },
+        ],
+        "Audit & Compliance Monitoring": [
+            {
+                question:
+                    "Are all cloud activities continuously monitored for compliance with Nigerian regulations?",
+                regulatoryBody: ["CBN"],
+                remediation:
+                    "Implement automated compliance monitoring dashboards. Configure alerts for policy violations. Generate monthly compliance reports. Conduct quarterly self-assessments against regulatory requirements.",
+            },
+            {
+                question:
+                    "Do you maintain audit-ready documentation for all cloud governance, risk, and compliance activities?",
+                regulatoryBody: ["CBN"],
+                remediation:
+                    "Implement GRC platform for centralized compliance documentation. Maintain policy libraries, risk registers, and control evidence.",
+            },
+            {
+                question:
+                    "Do you have processes to stay current with evolving Nigerian fintech regulations and cloud guidance?",
+                regulatoryBody: ["CBN"],
+                remediation:
+                    "Subscribe to regulatory updates from NDPC, CBN, NITDA. Participate in industry compliance forums. Conduct annual regulatory impact assessments. Update policies and procedures based on regulatory changes.",
+            },
+        ],
+        "Operational Resilience": [
+            {
+                question:
+                    "Are key performance indicators (KPIs) and service level objectives (SLOs) monitored and reported for all critical cloud services?",
+                regulatoryBody: ["CBN"],
+                remediation:
+                    "Define and monitor KPIs for all critical business services. Implement automated SLO monitoring and alerting. Generate monthly service performance reports. Maintain service improvement programs based on KPI trends.",
+            },
+        ],
+    },
 };

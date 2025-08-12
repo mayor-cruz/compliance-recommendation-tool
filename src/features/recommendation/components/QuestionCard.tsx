@@ -8,44 +8,38 @@ import {
 } from "@/components/ui/card";
 
 interface QuestionCardProps {
-    category: string;
     question: string;
-    regulatorySpec: string;
     questionNumber: number;
     totalQuestions: number;
-    onAnswer: (answer: boolean) => void;
+    regulatoryBody?: string[];
+    onAnswer: (answer: "yes" | "no") => void;
 }
 
 export function QuestionCard({
-    category,
     question,
-    regulatorySpec,
     questionNumber,
     totalQuestions,
+    regulatoryBody,
     onAnswer,
 }: QuestionCardProps) {
     return (
         <Card>
-            <CardHeader className="flex justify-between items-center">
-                <div>
-                    <CardTitle className="text-lg">
-                        Question {questionNumber} of {totalQuestions}
-                    </CardTitle>
-                    <CardDescription>{category}</CardDescription>
-                </div>
-
-                <div>
+            <CardHeader>
+                <CardTitle className="text-lg">
+                    Question {questionNumber} of {totalQuestions}
+                </CardTitle>
+                {regulatoryBody && regulatoryBody.length > 0 && (
                     <CardDescription>
-                        Regulatory Body: {regulatorySpec}
+                        Regulatory Body: {regulatoryBody.join(", ")}
                     </CardDescription>
-                </div>
+                )}
             </CardHeader>
             <CardContent className="space-y-6">
                 <p className="text-base leading-relaxed">{question}</p>
 
                 <div className="flex gap-4 justify-center">
-                    <Button onClick={() => onAnswer(true)}>Yes</Button>
-                    <Button onClick={() => onAnswer(false)}>No</Button>
+                    <Button onClick={() => onAnswer("yes")}>Yes</Button>
+                    <Button onClick={() => onAnswer("no")}>No</Button>
                 </div>
             </CardContent>
         </Card>

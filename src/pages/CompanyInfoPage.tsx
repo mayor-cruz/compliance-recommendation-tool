@@ -37,10 +37,13 @@ export default function CompanyInfoPage() {
             complianceOfficer: "",
             hasDataProtectionOfficer: false,
             primaryDataTypes: [],
+            cloudStatus: "pre-cloud",
         }
     );
 
-    const [errors, setErrors] = useState<Partial<CompanyInfo>>({});
+    const [errors, setErrors] = useState<
+        Partial<Record<keyof CompanyInfo, string>>
+    >({});
 
     const industries = [
         "Banking & Financial Services",
@@ -78,7 +81,7 @@ export default function CompanyInfoPage() {
     ];
 
     const validateForm = () => {
-        const newErrors: Partial<CompanyInfo> = {};
+        const newErrors: Partial<Record<keyof CompanyInfo, string>> = {};
 
         if (!companyInfo.companyName.trim()) {
             newErrors.companyName = "Company name is required";
@@ -99,6 +102,9 @@ export default function CompanyInfoPage() {
         }
         if (!companyInfo.complianceOfficer.trim()) {
             newErrors.complianceOfficer = "Compliance officer name is required";
+        }
+        if (!companyInfo.cloudStatus) {
+            newErrors.cloudStatus = "Cloud migration status is required";
         }
 
         setErrors(newErrors);
@@ -265,6 +271,54 @@ export default function CompanyInfoPage() {
                                             {errors.companySize}
                                         </p>
                                     )}
+                                </div>
+
+                                {/* Cloud Migration Status */}
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                                        Cloud Migration Status *
+                                    </label>
+                                    <Select
+                                        value={companyInfo.cloudStatus}
+                                        onValueChange={(
+                                            value: "pre-cloud" | "post-cloud"
+                                        ) =>
+                                            setCompanyInfo((prev) => ({
+                                                ...prev,
+                                                cloudStatus: value,
+                                            }))
+                                        }
+                                    >
+                                        <SelectTrigger
+                                            className={`w-full ${
+                                                errors.cloudStatus
+                                                    ? "border-red-500"
+                                                    : ""
+                                            }`}
+                                        >
+                                            <SelectValue placeholder="Select your cloud status" />
+                                        </SelectTrigger>
+                                        <SelectContent>
+                                            <SelectItem value="pre-cloud">
+                                                Planning to migrate to cloud
+                                                (Pre-Cloud)
+                                            </SelectItem>
+                                            <SelectItem value="post-cloud">
+                                                Already using cloud services
+                                                (Post-Cloud)
+                                            </SelectItem>
+                                        </SelectContent>
+                                    </Select>
+                                    {errors.cloudStatus && (
+                                        <p className="text-red-500 text-sm mt-1">
+                                            {errors.cloudStatus}
+                                        </p>
+                                    )}
+                                    <p className="text-sm text-gray-500 mt-1">
+                                        {companyInfo.cloudStatus === "pre-cloud"
+                                            ? "You'll receive guidance on preparing for cloud migration and compliance requirements."
+                                            : "You'll receive recommendations for optimizing your current cloud compliance posture."}
+                                    </p>
                                 </div>
 
                                 {/* Location */}

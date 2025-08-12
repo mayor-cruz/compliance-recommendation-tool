@@ -4,17 +4,35 @@ export interface Question {
     regulatorySpec: string;
 }
 
+// Pre-cloud question structure
+export interface PreCloudQuestion {
+    question: string;
+    regulations: string[];
+    actions: string;
+}
+
+// Post-cloud question structure
+export interface PostCloudQuestion {
+    question: string;
+    regulatoryBody: string[];
+    remediation: string;
+}
+
 export interface Answer {
-    categoryIndex: number;
     questionIndex: number;
-    answer: boolean;
+    category: string;
+    answer: "yes" | "no";
+    question: string;
 }
 
 export interface Recommendation {
     category: string;
     question: string;
-    remediation: string;
-    regulatorySpec: string;
+    regulations?: string[]; // For pre-cloud
+    regulatoryBody?: string[]; // For post-cloud
+    actions?: string; // For pre-cloud
+    remediation?: string; // For post-cloud
+    regulatorySpec?: string; // Legacy support
 }
 
 export interface CompanyInfo {
@@ -26,4 +44,5 @@ export interface CompanyInfo {
     complianceOfficer: string;
     hasDataProtectionOfficer: boolean;
     primaryDataTypes: string[];
+    cloudStatus: "pre-cloud" | "post-cloud";
 }
