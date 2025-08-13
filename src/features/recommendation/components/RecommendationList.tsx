@@ -88,6 +88,14 @@ export function RecommendationList({
                                         </span>{" "}
                                         {companyInfo.location}
                                     </div>
+                                    <div>
+                                        <span className="font-medium">
+                                            Cloud Status:
+                                        </span>{" "}
+                                        {companyInfo.cloudStatus === "pre-cloud"
+                                            ? "Pre-Cloud Migration"
+                                            : "Post-Cloud Migration"}
+                                    </div>
                                 </div>
                             </div>
                             <div>
@@ -213,15 +221,43 @@ export function RecommendationList({
                                                     Question: {rec.question}
                                                 </div>
                                                 <div className="bg-blue-50 p-3 rounded-md">
-                                                    <div className="text-sm font-medium text-blue-900 mb-1">
-                                                        {rec.actions
-                                                            ? "Recommended Actions:"
-                                                            : "Remediation Steps:"}
-                                                    </div>
-                                                    <div className="text-sm text-blue-800">
-                                                        {rec.actions ||
-                                                            rec.remediation}
-                                                    </div>
+                                                    {/* Check if this is a text input answer (starts with "Your response:") */}
+                                                    {(
+                                                        rec.actions ||
+                                                        rec.remediation
+                                                    )?.startsWith(
+                                                        "Your response:"
+                                                    ) ? (
+                                                        <div className="text-sm text-blue-800">
+                                                            <span className="font-medium">
+                                                                Your response:
+                                                            </span>{" "}
+                                                            {(
+                                                                rec.actions ||
+                                                                rec.remediation
+                                                            )
+                                                                ?.replace(
+                                                                    /^Your response: "|"\. .*$/g,
+                                                                    ""
+                                                                )
+                                                                .replace(
+                                                                    /"/g,
+                                                                    ""
+                                                                )}
+                                                        </div>
+                                                    ) : (
+                                                        <>
+                                                            <div className="text-sm font-medium text-blue-900 mb-1">
+                                                                {rec.actions
+                                                                    ? "Recommended Actions:"
+                                                                    : "Remediation Steps:"}
+                                                            </div>
+                                                            <div className="text-sm text-blue-800">
+                                                                {rec.actions ||
+                                                                    rec.remediation}
+                                                            </div>
+                                                        </>
+                                                    )}
                                                 </div>
                                                 {(rec.regulations ||
                                                     rec.regulatoryBody) && (

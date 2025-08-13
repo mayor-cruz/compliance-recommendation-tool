@@ -10,7 +10,7 @@ export const COMPLIANCE_CHECKLIST = {
         {
             question:
                 "Have you mapped out the data that will be processed by the service provider?",
-            regulations: ["Nigeria Data Protection Regulation (NDPR)"],
+            regulations: ["NDPR"],
             actions:
                 "Run an automated data-discovery scan across all systems to inventory personal and sensitive data. Classify data into “public,” “internal,” “confidential,” and “restricted” buckets. Maintain this classification in a living data-catalogue, updated quarterly, with assigned custodians for each data type.",
         },
@@ -38,6 +38,7 @@ export const COMPLIANCE_CHECKLIST = {
                 "If so, from which territory(ies) will the outsourced cloud services be provided and the location of the data",
             regulations: ["NDPR"],
             actions: "",
+            shouldHaveInput: true,
         },
         {
             question:
@@ -70,14 +71,14 @@ export const COMPLIANCE_CHECKLIST = {
         {
             question:
                 "Do you have and maintain a policy relating to cloud outsourcing?",
-            regulations: [],
+            regulations: ["CBN"],
             actions:
                 "Draft a Board-approved Outsourcing Policy covering vendor selection, monitoring cadence, risk-thresholds, exit-planning, and audit rights. Publish it to all business units, and conduct an annual training refresher with sign-off tracking.",
         },
         {
             question:
                 "Do you have the right to audit your outsourcing partner (Cloud Provider)",
-            regulations: [],
+            regulations: ["CBN"],
             actions:
                 "Embed an “Audit & Inspection” clause in every vendor contract granting: on-site visits, production of logs/documentation, and right to interview vendor staff. Keep a calendar of scheduled audits and confirm completion within 30 days of each engagement.",
         },
@@ -145,7 +146,7 @@ export const COMPLIANCE_CHECKLIST = {
         {
             question:
                 "Have you planned identity and access management for cloud resources?",
-            regulations: [],
+            regulations: ["CBN"],
             actions: "Design centralized identity management.",
         },
         {
@@ -158,14 +159,14 @@ export const COMPLIANCE_CHECKLIST = {
         {
             question:
                 "Do you have endpoint detection and response (EDR) planned for all devices?",
-            regulations: [],
+            regulations: ["CBN"],
             actions:
                 "Deploy EDR solution (CrowdStrike, Microsoft Defender, SentinelOne) on all employee devices and cloud workloads. Configure behavioral detection rules. Plan for remote device management. Integrate with SIEM for centralized monitoring.",
         },
         {
             question:
                 "Have you planned vulnerability management and security patching procedures?",
-            regulations: [],
+            regulations: ["CBN"],
             actions:
                 "Implement automated vulnerability scanning tools (Qualys, Rapid7, or cloud-native solutions). Define patching SLAs: Critical (24hrs), High (7 days), Medium (30 days). Plan for zero-day response procedures.",
         },
@@ -200,7 +201,7 @@ export const COMPLIANCE_CHECKLIST = {
         {
             question:
                 "What process does the financial institution have when outsourcing to service providers located in third-countries?",
-            regulations: [],
+            regulations: ["CBN"],
             actions:
                 "Perform country-risk assessments using a standardized template (covering legal, political, infrastructure stability). Mandate contractual safeguards—SCCs, local agent appointment, and right to audit—in all third-country outsourcing agreements.",
         },
@@ -211,7 +212,7 @@ export const COMPLIANCE_CHECKLIST = {
             {
                 question:
                     "Are you certified to the relevant cloud regulatory requirements (ISO27017) and ISO27001",
-                regulatoryBody: [],
+                regulatoryBody: ["CBN"],
                 remediation: "",
             },
         ],
@@ -299,7 +300,7 @@ export const COMPLIANCE_CHECKLIST = {
             {
                 question:
                     "Are automated compliance checks e.g., AWS Security Hub, Azure Blueprints enabled",
-                regulatoryBody: [],
+                regulatoryBody: ["CBN"],
                 remediation: "Enable automated cloud compliance checks",
             },
             {

@@ -74,7 +74,10 @@ export function RecommendationSystem({
     const progress =
         totalQuestions > 0 ? (answers.length / totalQuestions) * 100 : 0;
 
-    const handleAnswer = (answer: "yes" | "no") => {
+    const handleAnswer = (answer: "yes" | "no" | string) => {
+        const isTextAnswer =
+            typeof answer === "string" && answer !== "yes" && answer !== "no";
+
         const newAnswer: Answer = {
             questionIndex: currentQuestionIndex,
             category:
@@ -83,6 +86,7 @@ export function RecommendationSystem({
                     : (currentQuestion as any).category || currentCategory,
             answer,
             question: currentQuestion.question,
+            isTextAnswer,
         };
 
         const newAnswers = [...answers, newAnswer];
@@ -106,10 +110,36 @@ export function RecommendationSystem({
         }
     };
 
-    const generateRecommendations = (): Recommendation[] => {
-        const noAnswers = answers.filter((answer) => answer.answer === "no");
+    const handleBack = () => {
+        if (currentQuestionIndex > 0) {
+            // Remove the last answer and go back to previous question
+            const newAnswers = answers.slice(0, -1);
+            setAnswers(newAnswers);
 
-        return noAnswers.map((answer) => {
+            const previousQuestionIndex = currentQuestionIndex - 1;
+            setCurrentQuestionIndex(previousQuestionIndex);
+
+            // Update category for the previous question (post-cloud)
+            if (companyInfo?.cloudStatus === "post-cloud") {
+                const previousQuestion = questions[previousQuestionIndex];
+                setCurrentCategory(
+                    (previousQuestion as any).category || currentCategory
+                );
+            }
+        }
+    };
+
+    const generateRecommendations = (): Recommendation[] => {
+        // For text answers, we include them in recommendations if they have content
+        // For yes/no answers, we only include "no" answers
+        const relevantAnswers = answers.filter((answer) => {
+            if (answer.isTextAnswer) {
+                return true; // Include all text answers for informational purposes
+            }
+            return answer.answer === "no"; // Include only "no" answers for yes/no questions
+        });
+
+        return relevantAnswers.map((answer) => {
             const question = questions[answer.questionIndex];
 
             if (companyInfo?.cloudStatus === "pre-cloud") {
@@ -118,7 +148,9 @@ export function RecommendationSystem({
                     category: answer.category,
                     question: answer.question,
                     regulations: preCloudQ.regulations,
-                    actions: preCloudQ.actions,
+                    actions: answer.isTextAnswer
+                        ? `Your response: "${answer.answer}". ${preCloudQ.actions}`
+                        : preCloudQ.actions,
                 };
             } else {
                 const postCloudQ = question as PostCloudQuestion;
@@ -126,7 +158,9 @@ export function RecommendationSystem({
                     category: answer.category,
                     question: answer.question,
                     regulatoryBody: postCloudQ.regulatoryBody,
-                    remediation: postCloudQ.remediation,
+                    remediation: answer.isTextAnswer
+                        ? `Your response: "${answer.answer}". ${postCloudQ.remediation}`
+                        : postCloudQ.remediation,
                 };
             }
         });
@@ -213,7 +247,14 @@ export function RecommendationSystem({
                         ? (currentQuestion as PreCloudQuestion).regulations
                         : (currentQuestion as PostCloudQuestion).regulatoryBody
                 }
+                shouldHaveInput={
+                    companyInfo?.cloudStatus === "pre-cloud"
+                        ? (currentQuestion as PreCloudQuestion).shouldHaveInput
+                        : (currentQuestion as PostCloudQuestion).shouldHaveInput
+                }
+                canGoBack={currentQuestionIndex > 0}
                 onAnswer={handleAnswer}
+                onBack={handleBack}
             />
         </div>
     );
