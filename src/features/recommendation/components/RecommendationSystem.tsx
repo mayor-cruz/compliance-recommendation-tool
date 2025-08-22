@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { COMPLIANCE_CHECKLIST } from "../../../constants";
+import { COMPLIANCE_CHECKLIST } from "@/constants";
 import type {
     Answer,
     Recommendation,
@@ -14,22 +14,28 @@ import {
     CardDescription,
     CardHeader,
     CardTitle,
-} from "../../../components/ui/card";
-import { Progress } from "../../../components/ui/progress";
+} from "@/components/ui/card";
+import { Progress } from "@/components/ui/progress";
 import { QuestionCard } from "./QuestionCard";
 
 interface RecommendationSystemProps {
     companyInfo?: CompanyInfo;
     onShowRecommendations: (showing: boolean) => void;
+    existingAnswers?: Answer[];
+    showRecommendationsInitially?: boolean;
 }
 
 export function RecommendationSystem({
     companyInfo,
     onShowRecommendations,
+    existingAnswers,
+    showRecommendationsInitially = false,
 }: RecommendationSystemProps) {
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-    const [answers, setAnswers] = useState<Answer[]>([]);
-    const [showRecommendations, setShowRecommendations] = useState(false);
+    const [answers, setAnswers] = useState<Answer[]>(existingAnswers || []);
+    const [showRecommendations, setShowRecommendations] = useState(
+        showRecommendationsInitially
+    );
     const [currentCategory, setCurrentCategory] = useState("");
 
     // Get questions based on cloud status
@@ -46,9 +52,14 @@ export function RecommendationSystem({
             const categories = Object.keys(postCloudData);
             const questions = categories.flatMap((category) =>
                 postCloudData[category as keyof typeof postCloudData].map(
-                    (q: PostCloudQuestion) => ({
+                    (q) => ({
                         ...q,
                         category,
+                        priority: (q as any).priority as
+                            | "critical"
+                            | "high"
+                            | "medium"
+                            | undefined,
                     })
                 )
             );
@@ -70,6 +81,15 @@ export function RecommendationSystem({
         }
     }, [questions, categories, companyInfo?.cloudStatus]);
 
+    // Handle existing answers - if we have answers, show recommendations immediately
+    useEffect(() => {
+        if (existingAnswers && existingAnswers.length > 0) {
+            setAnswers(existingAnswers);
+            setShowRecommendations(true);
+            onShowRecommendations(true);
+        }
+    }, [existingAnswers, onShowRecommendations]);
+
     const currentQuestion = questions[currentQuestionIndex];
     const progress =
         totalQuestions > 0 ? (answers.length / totalQuestions) * 100 : 0;
@@ -79,6 +99,7 @@ export function RecommendationSystem({
             typeof answer === "string" && answer !== "yes" && answer !== "no";
 
         const newAnswer: Answer = {
+            questionId: currentQuestion.id || `INDEX_${currentQuestionIndex}`, // Use ID from constants
             questionIndex: currentQuestionIndex,
             category:
                 companyInfo?.cloudStatus === "pre-cloud"
@@ -139,31 +160,40 @@ export function RecommendationSystem({
             return answer.answer === "no"; // Include only "no" answers for yes/no questions
         });
 
-        return relevantAnswers.map((answer) => {
+        const recommendations = relevantAnswers.map((answer) => {
             const question = questions[answer.questionIndex];
+            const questionId = question.id || `INDEX_${answer.questionIndex}`;
 
             if (companyInfo?.cloudStatus === "pre-cloud") {
                 const preCloudQ = question as PreCloudQuestion;
+
                 return {
                     category: answer.category,
                     question: answer.question,
+                    questionId, // Add for debugging
                     regulations: preCloudQ.regulations,
                     actions: answer.isTextAnswer
                         ? `Your response: "${answer.answer}". ${preCloudQ.actions}`
                         : preCloudQ.actions,
+                    priority: preCloudQ.priority || "medium",
                 };
             } else {
                 const postCloudQ = question as PostCloudQuestion;
+
                 return {
                     category: answer.category,
                     question: answer.question,
+                    questionId, // Add for debugging
                     regulatoryBody: postCloudQ.regulatoryBody,
                     remediation: answer.isTextAnswer
                         ? `Your response: "${answer.answer}". ${postCloudQ.remediation}`
                         : postCloudQ.remediation,
+                    priority: postCloudQ.priority || "medium",
                 };
             }
         });
+
+        return recommendations;
     };
 
     const handleRestart = () => {
@@ -200,6 +230,7 @@ export function RecommendationSystem({
                 recommendations={generateRecommendations()}
                 companyInfo={companyInfo}
                 onRestart={handleRestart}
+                answers={answers}
             />
         );
     }

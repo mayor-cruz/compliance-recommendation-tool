@@ -1,22 +1,22 @@
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router";
-import { Button } from "../components/ui/button";
+import { Button } from "@/components/ui/button";
 import {
     Card,
     CardContent,
     CardDescription,
     CardHeader,
     CardTitle,
-} from "../components/ui/card";
-import { Input } from "../components/ui/input";
-import { Checkbox } from "../components/ui/checkbox";
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
     Select,
     SelectContent,
     SelectItem,
     SelectTrigger,
     SelectValue,
-} from "../components/ui/select";
+} from "@/components/ui/select";
 import { ArrowLeft } from "lucide-react";
 import type { CompanyInfo } from "../types";
 
@@ -30,12 +30,11 @@ export default function CompanyInfoPage() {
     const [companyInfo, setCompanyInfo] = useState<CompanyInfo>(
         existingCompanyInfo || {
             companyName: "",
-            industry: "",
-            companySize: "",
+            industry: "Fintech",
             location: "",
             contactEmail: "",
             complianceOfficer: "",
-            hasDataProtectionOfficer: false,
+            hasDataProtectionOfficer: null,
             primaryDataTypes: [],
             cloudStatus: "pre-cloud",
         }
@@ -45,29 +44,7 @@ export default function CompanyInfoPage() {
         Partial<Record<keyof CompanyInfo, string>>
     >({});
 
-    const industries = [
-        "Banking & Financial Services",
-        "Fintech",
-        "Insurance",
-        "Healthcare",
-        "E-commerce",
-        "Telecommunications",
-        "Education",
-        "Government",
-        "Technology",
-        "Manufacturing",
-        "Oil & Gas",
-        "Other",
-    ];
-
-    const companySizes = [
-        "1-10 employees",
-        "11-50 employees",
-        "51-200 employees",
-        "201-500 employees",
-        "501-1000 employees",
-        "1000+ employees",
-    ];
+    const industries = ["Fintech"];
 
     const dataTypes = [
         "Personal Customer Data",
@@ -88,9 +65,6 @@ export default function CompanyInfoPage() {
         }
         if (!companyInfo.industry) {
             newErrors.industry = "Industry selection is required";
-        }
-        if (!companyInfo.companySize) {
-            newErrors.companySize = "Company size is required";
         }
         if (!companyInfo.location.trim()) {
             newErrors.location = "Location is required";
@@ -123,8 +97,10 @@ export default function CompanyInfoPage() {
         setCompanyInfo((prev) => ({
             ...prev,
             primaryDataTypes: checked
-                ? [...prev.primaryDataTypes, dataType]
-                : prev.primaryDataTypes.filter((type) => type !== dataType),
+                ? [...(prev.primaryDataTypes || []), dataType]
+                : (prev.primaryDataTypes || []).filter(
+                      (type) => type !== dataType
+                  ),
         }));
     };
 
@@ -228,47 +204,6 @@ export default function CompanyInfoPage() {
                                     {errors.industry && (
                                         <p className="text-red-500 text-sm mt-1">
                                             {errors.industry}
-                                        </p>
-                                    )}
-                                </div>
-
-                                {/* Company Size */}
-                                <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                                        Company Size *
-                                    </label>
-                                    <Select
-                                        value={companyInfo.companySize}
-                                        onValueChange={(value) =>
-                                            setCompanyInfo((prev) => ({
-                                                ...prev,
-                                                companySize: value,
-                                            }))
-                                        }
-                                    >
-                                        <SelectTrigger
-                                            className={`w-full ${
-                                                errors.companySize
-                                                    ? "border-red-500"
-                                                    : ""
-                                            }`}
-                                        >
-                                            <SelectValue placeholder="Select company size" />
-                                        </SelectTrigger>
-                                        <SelectContent>
-                                            {companySizes.map((size) => (
-                                                <SelectItem
-                                                    key={size}
-                                                    value={size}
-                                                >
-                                                    {size}
-                                                </SelectItem>
-                                            ))}
-                                        </SelectContent>
-                                    </Select>
-                                    {errors.companySize && (
-                                        <p className="text-red-500 text-sm mt-1">
-                                            {errors.companySize}
                                         </p>
                                     )}
                                 </div>
@@ -407,23 +342,53 @@ export default function CompanyInfoPage() {
                                 </div>
 
                                 {/* Data Protection Officer */}
-                                <div className="flex items-center space-x-2">
-                                    <Checkbox
-                                        checked={
-                                            companyInfo.hasDataProtectionOfficer
-                                        }
-                                        onCheckedChange={(checked) =>
-                                            setCompanyInfo((prev) => ({
-                                                ...prev,
-                                                hasDataProtectionOfficer:
-                                                    !!checked,
-                                            }))
-                                        }
-                                    />
-                                    <label className="text-sm font-medium text-gray-700">
-                                        We have a designated Data Protection
-                                        Officer (DPO)
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 mb-3">
+                                        Do you have a CISO (Chief Information
+                                        Security Officer)?
                                     </label>
+                                    <div className="space-y-2">
+                                        <div className="flex items-center space-x-2">
+                                            <Checkbox
+                                                checked={
+                                                    companyInfo.hasDataProtectionOfficer ===
+                                                    true
+                                                }
+                                                onCheckedChange={(checked) =>
+                                                    setCompanyInfo((prev) => ({
+                                                        ...prev,
+                                                        hasDataProtectionOfficer:
+                                                            checked
+                                                                ? true
+                                                                : null,
+                                                    }))
+                                                }
+                                            />
+                                            <label className="text-sm font-medium text-gray-700">
+                                                Yes
+                                            </label>
+                                        </div>
+                                        <div className="flex items-center space-x-2">
+                                            <Checkbox
+                                                checked={
+                                                    companyInfo.hasDataProtectionOfficer ===
+                                                    false
+                                                }
+                                                onCheckedChange={(checked) =>
+                                                    setCompanyInfo((prev) => ({
+                                                        ...prev,
+                                                        hasDataProtectionOfficer:
+                                                            checked
+                                                                ? false
+                                                                : null,
+                                                    }))
+                                                }
+                                            />
+                                            <label className="text-sm font-medium text-gray-700">
+                                                No
+                                            </label>
+                                        </div>
+                                    </div>
                                 </div>
 
                                 {/* Primary Data Types */}
@@ -439,9 +404,11 @@ export default function CompanyInfoPage() {
                                                 className="flex items-center space-x-2"
                                             >
                                                 <Checkbox
-                                                    checked={companyInfo.primaryDataTypes.includes(
-                                                        dataType
-                                                    )}
+                                                    checked={
+                                                        companyInfo.primaryDataTypes?.includes(
+                                                            dataType
+                                                        ) || false
+                                                    }
                                                     onCheckedChange={(
                                                         checked
                                                     ) =>

@@ -1,6 +1,7 @@
 export const COMPLIANCE_CHECKLIST = {
     "pre-cloud": [
         {
+            id: "1",
             question:
                 "Do you understand what types of data your fintech collects and the protection requirements for each?",
             regulations: ["NDPR", "CBN"],
@@ -8,6 +9,7 @@ export const COMPLIANCE_CHECKLIST = {
                 "Create comprehensive data inventory spreadsheet. Classify data as: Customer PII, Financial transactions, Internal operations, Public information.",
         },
         {
+            id: "2",
             question:
                 "Have you mapped out the data that will be processed by the service provider?",
             regulations: ["NDPR"],
@@ -15,18 +17,22 @@ export const COMPLIANCE_CHECKLIST = {
                 "Run an automated data-discovery scan across all systems to inventory personal and sensitive data. Classify data into “public,” “internal,” “confidential,” and “restricted” buckets. Maintain this classification in a living data-catalogue, updated quarterly, with assigned custodians for each data type.",
         },
         {
+            id: "3",
             question:
                 "Have you conducted a Data Protection Impact Assessment (DPIA) for your cloud migration?",
             regulations: ["NDPR"],
             actions:
                 "Complete DPIA covering all planned cloud processing activities. Assess risks to data subjects, mitigation measures, necessity and proportionality. Consult DPO throughout process. Required for high-risk processing under NDPR.",
+            priority: "critical",
         },
         {
+            id: "4",
             question: "Will data be processed outside the shores of Nigeria,",
             regulations: ["NITDA & CBN"],
             actions: "",
         },
         {
+            id: "5",
             question:
                 "Do you understand the data residency requirements for different types of data?",
             regulations: ["CBN"],
@@ -34,6 +40,7 @@ export const COMPLIANCE_CHECKLIST = {
                 "Study CBN guidelines on cross-border data transfers. Map your data types to residency requirements: Core banking data (must stay in Nigeria), Marketing data (can be global), Analytics data (depends on content). Create data residency matrix.",
         },
         {
+            id: "6",
             question:
                 "If so, from which territory(ies) will the outsourced cloud services be provided and the location of the data",
             regulations: ["NDPR"],
@@ -41,6 +48,7 @@ export const COMPLIANCE_CHECKLIST = {
             shouldHaveInput: true,
         },
         {
+            id: "7",
             question:
                 "Have you prepared Standard Contractual Clauses (SCCs) for any data that may cross borders?",
             regulations: ["NDPR"],
@@ -48,6 +56,7 @@ export const COMPLIANCE_CHECKLIST = {
                 "Obtain NDPR-compliant SCC templates from legal counsel. Customize for your specific data processing activities. Include adequacy assessments for destination countries. Store templates in legal repository for vendor contracts.",
         },
         {
+            id: "8",
             question:
                 "Has due diligence been performed on the choice of service provider",
             regulations: ["CBN"],
@@ -55,6 +64,7 @@ export const COMPLIANCE_CHECKLIST = {
                 "Develop a vendor-risk rating model that scores each provider on security certifications, financial health, legal history, and SLA performance.",
         },
         {
+            id: "9",
             question:
                 "Have you considered other risks in relation to the proposed outsourcing arrangement",
             regulations: ["CBN"],
@@ -62,6 +72,7 @@ export const COMPLIANCE_CHECKLIST = {
                 "Maintain a dynamic “outsourcing risk register” that logs each risk (legal, operational, reputational, geographic, concentration) with owner, mitigation plan, and review date.",
         },
         {
+            id: "10",
             question:
                 "Have you evaluated different cloud service models (IaaS, PaaS, SaaS) for your needs and have an understanding of the shared responsibility model",
             regulations: ["CBN"],
@@ -69,20 +80,25 @@ export const COMPLIANCE_CHECKLIST = {
                 "Map all data flows in and out of your network using a Data Flow Diagram. Contractually restrict storage and processing to approved regions (e.g., Nigeria, ECOWAS, EU) by including explicit data-residency clauses. Audit your provider’s region settings every release cycle to ensure no inadvertent geo-drift.",
         },
         {
+            id: "11",
             question:
                 "Do you have and maintain a policy relating to cloud outsourcing?",
             regulations: ["CBN"],
             actions:
                 "Draft a Board-approved Outsourcing Policy covering vendor selection, monitoring cadence, risk-thresholds, exit-planning, and audit rights. Publish it to all business units, and conduct an annual training refresher with sign-off tracking.",
+            priority: "critical",
         },
         {
+            id: "12",
             question:
                 "Do you have the right to audit your outsourcing partner (Cloud Provider)",
             regulations: ["CBN"],
             actions:
                 "Embed an “Audit & Inspection” clause in every vendor contract granting: on-site visits, production of logs/documentation, and right to interview vendor staff. Keep a calendar of scheduled audits and confirm completion within 30 days of each engagement.",
+            priority: "critical",
         },
         {
+            id: "13",
             question:
                 "Do you maintain a register of information on all outsourcing arrangements?",
             regulations: ["CBN"],
@@ -90,20 +106,25 @@ export const COMPLIANCE_CHECKLIST = {
                 "Implement a living Outsourcing Register (in your GRC tool or a secured spreadsheet) listing: provider name, service scope, data categories, start/end dates, SLAs, audit-rights, and exit-plan reference. Review and reconcile it with Finance and Legal every quarter.",
         },
         {
+            id: "14",
             question:
                 "Are the outsourcing arrangements contained in a documented legally binding agreement that is signed by all parties?",
             regulations: ["CBN"],
             actions:
                 "Enforce a “No Service without Contract” rule: no vendor onboarding or payment until a fully executed agreement is in place. Track contract signatures in your CLM system and block any exceptions.",
+            priority: "critical",
         },
         {
+            id: "15",
             question:
                 "Does the outsourcing agreement include a clause that allows competent authorities to access documentation and information relating to the outsourcing arrangement?",
             regulations: ["CBN"],
             actions:
                 "Standardize a “Regulator Access” clause in all contract templates, referencing the exact statutory right. Have Legal verify its inclusion before every signature.",
+            priority: "critical",
         },
         {
+            id: "16",
             question:
                 "Does the outsourcing agreement provide for data and system security requirements within the outsourcing agreement and does the financial institution monitor compliance with these requirements on an ongoing basis?",
             regulations: ["CBN"],
@@ -111,6 +132,7 @@ export const COMPLIANCE_CHECKLIST = {
                 "Define a “Security Requirements Matrix” in each contract: encryption standards, DLP controls, MFA enforcement, incident-notification timelines, and pen-test frequency. Schedule quarterly compliance reviews with evidence submission from the provider.",
         },
         {
+            id: "17",
             question:
                 "Are the provider’s services subject to any third-party audit?",
             regulations: ["CBN"],
@@ -118,6 +140,7 @@ export const COMPLIANCE_CHECKLIST = {
                 "Mandate ISO 27001 (or equivalent) certification as a minimum. Obtain and review each audit report upon issuance, then confirm remediation of any high-risk issues within 60 days.",
         },
         {
+            id: "18",
             question:
                 "How is the financial institution’s data isolated from other data held by the service provider?",
             regulations: ["NDPR"],
@@ -125,12 +148,14 @@ export const COMPLIANCE_CHECKLIST = {
                 "Require proof of logical isolation: tenant-segmentation diagrams, VPC/network isolation details.",
         },
         {
+            id: "19",
             question: "How are the service provider’s access logs monitored?",
             regulations: ["CBN"],
             actions:
                 "Stream provider audit logs into your centralized SIEM with role-based dashboards and automated alerts for anomalous activity. Review alerts weekly and run quarterly log-review workshops with IT Security.",
         },
         {
+            id: "20",
             question:
                 "Do you have a security incident classification and escalation matrix?",
             regulations: ["CBN"],
@@ -138,18 +163,21 @@ export const COMPLIANCE_CHECKLIST = {
                 "Define incident severity levels (P0-P4) with specific escalation timelines. Create communication trees for different incident types. Build compliance dashboards for senior management.",
         },
         {
+            id: "21",
             question: "How are customers authenticated?",
             regulations: ["CBN"],
             actions:
                 "Mandate MFA for all user-facing and administrative access. Implement adaptive authentication (risk-based step-up) and audit authentication logs monthly for failed/suspicious attempts.",
         },
         {
+            id: "22",
             question:
                 "Have you planned identity and access management for cloud resources?",
             regulations: ["CBN"],
             actions: "Design centralized identity management.",
         },
         {
+            id: "23",
             question:
                 "What security controls are in place to protect the transmission and storage of confidential information such as customer data within the infrastructure of the service provider?",
             regulations: ["CBN", "NDPR"],
@@ -157,6 +185,7 @@ export const COMPLIANCE_CHECKLIST = {
                 "Specify encryption-in-transit (TLS 1.2+) and encryption-at-rest (AES 256+) requirements in every contract. Quarterly test encryption compliance via packet captures and storage audits.",
         },
         {
+            id: "24",
             question:
                 "Do you have endpoint detection and response (EDR) planned for all devices?",
             regulations: ["CBN"],
@@ -164,6 +193,7 @@ export const COMPLIANCE_CHECKLIST = {
                 "Deploy EDR solution (CrowdStrike, Microsoft Defender, SentinelOne) on all employee devices and cloud workloads. Configure behavioral detection rules. Plan for remote device management. Integrate with SIEM for centralized monitoring.",
         },
         {
+            id: "25",
             question:
                 "Have you planned vulnerability management and security patching procedures?",
             regulations: ["CBN"],
@@ -171,13 +201,16 @@ export const COMPLIANCE_CHECKLIST = {
                 "Implement automated vulnerability scanning tools (Qualys, Rapid7, or cloud-native solutions). Define patching SLAs: Critical (24hrs), High (7 days), Medium (30 days). Plan for zero-day response procedures.",
         },
         {
+            id: "26",
             question:
                 "Are there procedures established to securely destroy or remove the data when the need arises (for example, when the contract terminates)?",
             regulations: ["NDPR"],
             actions:
                 "Define data-retention schedules and secure-deletion workflows in your Data-Lifecycle Policy. Validate deletion via forensic analysis or deletion logs within 30 days of contract end.",
+            priority: "critical",
         },
         {
+            id: "27",
             question:
                 "Are there documented security procedures for safeguarding hardware, software and data in the datacenter?",
             regulations: ["CBN"],
@@ -185,6 +218,7 @@ export const COMPLIANCE_CHECKLIST = {
                 "Obtain a hardcopy of the provider’s Physical Security Standard and ensure it includes perimeter defenses, biometric access, CCTV, and environmental controls. Commission an annual third-party physical-security audit and review findings.",
         },
         {
+            id: "28",
             question:
                 "Does the financial institution have a disaster recovery or business continuity plan with regard to outsourced critical or important functions?",
             regulations: ["CBN"],
@@ -192,6 +226,7 @@ export const COMPLIANCE_CHECKLIST = {
                 "Collect the provider’s DR/BCP plan, run joint tabletop scenarios annually, and measure your RTO/RPO against SLA targets.",
         },
         {
+            id: "29",
             question:
                 "What are the data backup and recovery arrangements for your organisation’s data that resides with the service provider?",
             regulations: ["CBN"],
@@ -199,6 +234,7 @@ export const COMPLIANCE_CHECKLIST = {
                 "Define RTO/RPO targets in your SLA. Perform quarterly restore-testing from backups in multiple regions, and document success/failure rates in your Backup Audit Report.",
         },
         {
+            id: "30",
             question:
                 "What process does the financial institution have when outsourcing to service providers located in third-countries?",
             regulations: ["CBN"],
@@ -210,6 +246,7 @@ export const COMPLIANCE_CHECKLIST = {
     "post-cloud": {
         "Regulatory Compliance": [
             {
+                id: "1",
                 question:
                     "Are you certified to the relevant cloud regulatory requirements (ISO27017) and ISO27001",
                 regulatoryBody: ["CBN"],
@@ -218,12 +255,14 @@ export const COMPLIANCE_CHECKLIST = {
         ],
         "Data Protection Compliance": [
             {
+                id: "2",
                 question:
                     "Do actively monitoring cloud data processing activities",
                 regulatoryBody: ["NDPR"],
                 remediation: "",
             },
             {
+                id: "3",
                 question:
                     "Are all cloud-stored personal data properly classified and tagged accordingly?",
                 regulatoryBody: ["NDPR"],
@@ -231,36 +270,45 @@ export const COMPLIANCE_CHECKLIST = {
                     "Implement automated data classification tools. Tag all PII with sensitivity levels. Create data discovery reports. Remediate unclassified data within 60 days.",
             },
             {
+                id: "4",
                 question:
                     "Are Standard Contractual Clauses (SCCs) in place for all cross-border data transfers from your cloud?",
                 regulatoryBody: ["NDPR"],
                 remediation:
                     "Execute NDPR-compliant SCCs with all international cloud providers and processors. Conduct transfer impact assessments. Implement additional safeguards where required. Register international transfers with NDPC.",
+                priority: "critical",
             },
             {
+                id: "5",
                 question:
                     "Have you conducted Data Protection Impact Assessments (DPIAs) for all high-risk cloud processing activities?",
                 regulatoryBody: ["NDPR"],
                 remediation:
                     "Complete DPIAs for AI/ML, profiling, large-scale PII processing, cross-border transfers. Implement recommended mitigation measures. Update DPIAS when processing changes. Store DPIA records for regulatory access.",
+                priority: "critical",
             },
         ],
         "Data Residency Compliance": [
             {
+                id: "6",
                 question:
                     "Are all Nigerian customer financial records stored exclusively within Nigerian borders or approved locations?",
                 regulatoryBody: ["CBN", "NDPR"],
                 remediation:
                     "Immediately audit data locations using cloud provider tools. Migrate non-compliant data to Nigerian regions within 90 days. Implement geo-blocking for data outside approved regions. Document data residency evidence.",
+                priority: "critical",
             },
             {
+                id: "7",
                 question:
                     "Do you have automated controls preventing Nigerian financial data from being stored in unauthorized regions?",
                 regulatoryBody: ["CBN", "NDPR"],
                 remediation:
                     "Deploy Azure Policy, AWS Organizations SCPs, or Google Cloud Organization Policies to block unauthorized regions. Set up real-time alerts for policy violations. Remove existing data from non-compliant regions.",
+                priority: "critical",
             },
             {
+                id: "8",
                 question:
                     "Are backups and disaster recovery copies of Nigerian data stored in compliant locations?",
                 regulatoryBody: ["CBN", "NDPR"],
@@ -270,13 +318,16 @@ export const COMPLIANCE_CHECKLIST = {
         ],
         "Cloud Security Compliance": [
             {
+                id: "9",
                 question:
                     "Are all cloud-stored sensitive data encrypted at rest using strong encryption algorithms?",
                 regulatoryBody: ["NDPR", "CBN"],
                 remediation:
                     "Enable AES-256 encryption on all storage services. Audit existing unencrypted data and encrypt within 30 days. Document encryption key management procedures. Implement automated encryption compliance scanning.",
+                priority: "high",
             },
             {
+                id: "10",
                 question:
                     "Is all data in transit between cloud services and users encrypted with TLS 1.2 or higher?",
                 regulatoryBody: ["CBN"],
@@ -284,13 +335,16 @@ export const COMPLIANCE_CHECKLIST = {
                     "Enforce TLS 1.2+ on all endpoints. Disable weak ciphers and protocols. Implement HTTP Strict Transport Security (HSTS). Conduct SSL/TLS configuration audits monthly.",
             },
             {
+                id: "11",
                 question:
                     "Do you have multi-factor authentication enforced for all administrative access to cloud resources?",
                 regulatoryBody: ["CBN"],
                 remediation:
                     "Enable MFA on all cloud administrator accounts. Remove SMS-based MFA for privileged accounts. Implement FIDO2 hardware keys for critical system access. Audit and remediate MFA bypass scenarios.",
+                priority: "high",
             },
             {
+                id: "12",
                 question:
                     "Are privileged access rights regularly reviewed and certified by business owners?",
                 regulatoryBody: ["CBN"],
@@ -298,12 +352,14 @@ export const COMPLIANCE_CHECKLIST = {
                     "Implement quarterly access certification campaigns. Remove orphaned accounts and excessive permissions. Document business justification for all privileged access. Automate access reviews where possible.",
             },
             {
+                id: "13",
                 question:
                     "Are automated compliance checks e.g., AWS Security Hub, Azure Blueprints enabled",
                 regulatoryBody: ["CBN"],
                 remediation: "Enable automated cloud compliance checks",
             },
             {
+                id: "14",
                 question:
                     "Do you have endpoint detection and response (EDR) deployed on all devices accessing cloud resources?",
                 regulatoryBody: ["CBN"],
@@ -313,13 +369,16 @@ export const COMPLIANCE_CHECKLIST = {
         ],
         "SIEM & Monitoring Compliance": [
             {
+                id: "15",
                 question:
                     "Is comprehensive security logging enabled and ingested into a SIEM solution for all cloud services?",
                 regulatoryBody: ["CBN"],
                 remediation:
                     "Enable audit logging on all cloud services (CloudTrail, Activity Logs, etc.). Configure log forwarding to SIEM. Implement log retention policies (7 years minimum). Test log ingestion and parsing regularly.",
+                priority: "high",
             },
             {
+                id: "16",
                 question:
                     "Are you monitoring for fintech-specific threats including payment fraud, account takeover, and API abuse?",
                 regulatoryBody: ["CBN", "EFCC"],
@@ -327,20 +386,25 @@ export const COMPLIANCE_CHECKLIST = {
                     "Implement fintech threat detection rules using MITRE ATT&CK framework. Deploy User and Entity Behavior Analytics (UEBA). Create automated response playbooks. Test detection rules with simulated attacks monthly.",
             },
             {
+                id: "17",
                 question:
                     "Do you have 24/7 security monitoring with documented incident response procedures?",
                 regulatoryBody: ["CBN", "NDPR"],
                 remediation:
                     "Establish 24/7 SOC coverage (internal or MSSP). Document incident classification and escalation procedures. Include regulatory notification requirements. Conduct tabletop exercises quarterly.",
+                priority: "critical",
             },
             {
+                id: "18",
                 question:
                     "Are security logs retained for the required 7-year period in tamper-proof storage?",
                 regulatoryBody: ["CBN"],
                 remediation:
                     "Configure automated log archiving to immutable storage (S3 Object Lock, Azure Immutable Blobs). Implement legal hold capabilities. Test log retrieval procedures quarterly. Maintain chain of custody documentation.",
+                priority: "high",
             },
             {
+                id: "19",
                 question:
                     "Do you have cross-service correlation rules for detecting suspicious patterns across multiple cloud services and accounts?",
                 regulatoryBody: ["CBN"],
@@ -348,6 +412,7 @@ export const COMPLIANCE_CHECKLIST = {
                     "Implement cross-service correlation rules for: unusual login patterns, privilege escalation, data exfiltration, payment anomalies. Tune rules to reduce false positives. Document investigation procedures.",
             },
             {
+                id: "20",
                 question:
                     "Are threat intelligence feeds integrated into your SIEM to detect Nigerian-specific financial threats?",
                 regulatoryBody: ["CBN"],
@@ -357,6 +422,7 @@ export const COMPLIANCE_CHECKLIST = {
         ],
         "Vulnerability Management": [
             {
+                id: "21",
                 question:
                     "Do you have automated vulnerability scanning covering all cloud workloads and configurations?",
                 regulatoryBody: ["CBN"],
@@ -364,6 +430,7 @@ export const COMPLIANCE_CHECKLIST = {
                     "Deploy vulnerability scanning tools for cloud infrastructure and applications. Configure weekly scans and real-time monitoring. Integrate with patch management systems. Maintain vulnerability dashboards.",
             },
             {
+                id: "22",
                 question:
                     "Are critical security patches applied within 24 hours and other patches within defined SLAS?",
                 regulatoryBody: ["CBN"],
@@ -371,6 +438,7 @@ export const COMPLIANCE_CHECKLIST = {
                     "Implement automated patching for critical vulnerabilities. Define patching SLAs: Critical (24hrs), High (7 days), Medium (30 days). Track patch compliance rates. Maintain emergency patching procedures.",
             },
             {
+                id: "23",
                 question:
                     "Do you conduct regular penetration testing of your cloud infrastructure and applications?",
                 regulatoryBody: ["CBN"],
@@ -378,6 +446,7 @@ export const COMPLIANCE_CHECKLIST = {
                     "Schedule quarterly penetration testing by certified firms. Include API security testing, cloud configuration reviews, and social engineering. Remediate critical findings within 30 days. Maintain penetration test reports.",
             },
             {
+                id: "24",
                 question:
                     "Are cloud security configurations continuously monitored against security baselines?",
                 regulatoryBody: ["CBN"],
@@ -387,6 +456,7 @@ export const COMPLIANCE_CHECKLIST = {
         ],
         "Business Continuity & DR": [
             {
+                id: "25",
                 question:
                     "Are Recovery Point Objectives (RPO) and Recovery Time Objectives (RTO) being met for all critical systems?",
                 regulatoryBody: ["CBN"],
@@ -394,6 +464,7 @@ export const COMPLIANCE_CHECKLIST = {
                     "Monitor actual backup and recovery performance against defined RPO/RTO targets. Implement automated backup verification. Conduct monthly recovery tests. Document performance metrics and improvement plans.",
             },
             {
+                id: "26",
                 question:
                     "Are disaster recovery procedures tested regularly with documented results?",
                 regulatoryBody: ["CBN"],
@@ -401,6 +472,7 @@ export const COMPLIANCE_CHECKLIST = {
                     "Conduct quarterly DR tests including full system failovers. Document test results, issues, and remediation. Update DR procedures based on test outcomes. Maintain DR runbooks in version control.",
             },
             {
+                id: "27",
                 question:
                     "Do you have immutable backups that protect against ransomware and insider threats?",
                 regulatoryBody: ["CBN"],
@@ -408,6 +480,7 @@ export const COMPLIANCE_CHECKLIST = {
                     "Implement WORM storage for critical backups. Maintain air-gapped backup copies. Test backup integrity regularly. Configure backup deletion protection and audit trails.",
             },
             {
+                id: "28",
                 question:
                     "Are backup restoration procedures tested monthly with data integrity validation?",
                 regulatoryBody: ["CBN"],
@@ -415,6 +488,7 @@ export const COMPLIANCE_CHECKLIST = {
                     "Schedule automated backup restoration tests to isolated environments. Validate data integrity using checksums and application tests. Document restoration timeframes. Maintain restoration success rates above 95%.",
             },
             {
+                id: "29",
                 question:
                     "Do you have multi-region deployment capabilities for business continuity?",
                 regulatoryBody: ["CBN"],
@@ -424,20 +498,25 @@ export const COMPLIANCE_CHECKLIST = {
         ],
         "Third Party Risk Management": [
             {
+                id: "30",
                 question:
                     "Are all cloud service providers and SaaS vendors properly vetted and under contract with appropriate security clauses?",
                 regulatoryBody: ["CBN"],
                 remediation:
                     "Conduct security assessments of all cloud vendors. Ensure contracts include data protection clauses, audit rights, breach notification terms. Maintain vendor risk register. Review vendor compliance annually.",
+                priority: "critical",
             },
             {
+                id: "31",
                 question:
                     "Do you have Business Associate Agreements (BAAs) or Data Processing Agreements (DPAs) with cloud providers?",
                 regulatoryBody: ["NDPR"],
                 remediation:
                     "Execute DPAs with all cloud providers processing Nigerian data. Ensure DPAs include NDPR compliance requirements. Document data processing activities and purposes. Review and update DPAs annually.",
+                priority: "high",
             },
             {
+                id: "32",
                 question:
                     "Are vendor security controls independently verified through certifications or assessments?",
                 regulatoryBody: ["NDPR"],
@@ -447,20 +526,25 @@ export const COMPLIANCE_CHECKLIST = {
         ],
         "Incident Response Compliance": [
             {
+                id: "33",
                 question:
                     "Are security incidents properly classified, investigated, and reported to relevant Nigerian authorities?",
                 regulatoryBody: ["CBN"],
                 remediation:
                     "Implement incident classification matrix aligned with Nigerian regulations. Train staff on incident reporting requirements. Maintain direct contacts with NITDA, CBN, EFCC. Document all incidents and regulatory notifications.",
+                priority: "critical",
             },
             {
+                id: "34",
                 question:
                     "Do you have documented procedures for notifying NDPC and CBN within 72 hours of personal data breaches?",
                 regulatoryBody: ["NDPR"],
                 remediation:
                     "Create automated breach notification workflows. Pre-populate NDPC notification templates. Train incident response team on NDPR notification requirements. Test notification procedures quarterly.",
+                priority: "critical",
             },
             {
+                id: "35",
                 question:
                     "Are forensic capabilities available to support incident investigations and regulatory requirements?",
                 regulatoryBody: ["CBN"],
@@ -468,6 +552,7 @@ export const COMPLIANCE_CHECKLIST = {
                     "Establish digital forensics capabilities (internal or contracted). Maintain forensic imaging tools and procedures. Ensure evidence chain of custody procedures. Train investigators on Nigerian legal requirements.",
             },
             {
+                id: "36",
                 question:
                     "Do you have communication procedures for customer and stakeholder notification during incidents?",
                 regulatoryBody: ["CBN"],
@@ -477,6 +562,7 @@ export const COMPLIANCE_CHECKLIST = {
         ],
         "Audit & Compliance Monitoring": [
             {
+                id: "37",
                 question:
                     "Are all cloud activities continuously monitored for compliance with Nigerian regulations?",
                 regulatoryBody: ["CBN"],
@@ -484,13 +570,16 @@ export const COMPLIANCE_CHECKLIST = {
                     "Implement automated compliance monitoring dashboards. Configure alerts for policy violations. Generate monthly compliance reports. Conduct quarterly self-assessments against regulatory requirements.",
             },
             {
+                id: "38",
                 question:
                     "Do you maintain audit-ready documentation for all cloud governance, risk, and compliance activities?",
                 regulatoryBody: ["CBN"],
                 remediation:
                     "Implement GRC platform for centralized compliance documentation. Maintain policy libraries, risk registers, and control evidence.",
+                priority: "high",
             },
             {
+                id: "39",
                 question:
                     "Do you have processes to stay current with evolving Nigerian fintech regulations and cloud guidance?",
                 regulatoryBody: ["CBN"],
@@ -500,6 +589,7 @@ export const COMPLIANCE_CHECKLIST = {
         ],
         "Operational Resilience": [
             {
+                id: "40",
                 question:
                     "Are key performance indicators (KPIs) and service level objectives (SLOs) monitored and reported for all critical cloud services?",
                 regulatoryBody: ["CBN"],

@@ -1,8 +1,8 @@
 import { useLocation, useNavigate } from "react-router";
 import { RecommendationSystem } from "./components/RecommendationSystem";
-import { Button } from "../../components/ui/button";
+import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
-import type { CompanyInfo } from "../../types";
+import type { CompanyInfo, Answer } from "../../types";
 import { useState } from "react";
 
 type Props = {};
@@ -10,8 +10,18 @@ type Props = {};
 export default function Recommendation({}: Props) {
     const location = useLocation();
     const navigate = useNavigate();
-    const companyInfo = location.state as CompanyInfo | undefined;
-    const [showingRecommendations, setShowingRecommendations] = useState(false);
+
+    // Handle both direct company info and existing state with answers
+    const state = location.state as any;
+    const companyInfo: CompanyInfo | undefined = state?.companyInfo || state;
+    const existingAnswers: Answer[] | undefined = state?.answers;
+    const showRecommendationsInitially = Boolean(
+        existingAnswers && existingAnswers.length > 0
+    );
+
+    const [showingRecommendations, setShowingRecommendations] = useState(
+        showRecommendationsInitially
+    );
 
     const handleBack = () => {
         navigate("/company-info", { state: companyInfo });
@@ -35,6 +45,8 @@ export default function Recommendation({}: Props) {
                 <RecommendationSystem
                     companyInfo={companyInfo}
                     onShowRecommendations={setShowingRecommendations}
+                    existingAnswers={existingAnswers}
+                    showRecommendationsInitially={showRecommendationsInitially}
                 />
             </main>
         </div>

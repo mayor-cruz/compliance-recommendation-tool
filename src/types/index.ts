@@ -6,22 +6,27 @@ export interface Question {
 
 // Pre-cloud question structure
 export interface PreCloudQuestion {
+    id: string;
     question: string;
     regulations: string[];
     actions: string;
     shouldHaveInput?: boolean;
+    priority?: "critical" | "high" | "medium";
 }
 
 // Post-cloud question structure
 export interface PostCloudQuestion {
+    id: string;
     question: string;
     regulatoryBody: string[];
     remediation: string;
     shouldHaveInput?: boolean;
+    priority?: "critical" | "high" | "medium";
 }
 
 export interface Answer {
-    questionIndex: number;
+    questionId: string; // Changed from questionIndex to questionId
+    questionIndex: number; // Keep for backward compatibility during transition
     category: string;
     answer: "yes" | "no" | string; // Now supports text answers
     question: string;
@@ -35,16 +40,16 @@ export interface Recommendation {
     actions?: string; // For pre-cloud
     remediation?: string; // For post-cloud
     regulatorySpec?: string; // Legacy support
+    priority?: "critical" | "high" | "medium"; // Priority level for post-cloud recommendations
 }
 
 export interface CompanyInfo {
     companyName: string;
     industry: string;
-    companySize: string;
     location: string;
     contactEmail: string;
     complianceOfficer: string;
-    hasDataProtectionOfficer: boolean;
+    hasDataProtectionOfficer: boolean | null;
     primaryDataTypes: string[];
     cloudStatus: "pre-cloud" | "post-cloud";
 }
